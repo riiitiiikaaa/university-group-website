@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Editor – Student 3 | AquaAction SDG 6</title>
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Page Editor may use distinct styling for clarity and readability -->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    .info-line{
+      display: flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .divider{
+      color: #888;
+      font-weight: bold;
+    }
+    
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { 
+      background:#f8fbff;
+      color:#1a2e44;
+      font-family:'DM Sans', sans-serif;
+      font-weight:300;
+      line-height:1.75; 
+     }
+    a { 
+      color: #0077b6; 
+      text-decoration: none; }
+    a:hover { 
+      color: #00374a; 
+      text-decoration: underline; }
+    h1, h2, h3 { 
+      font-family: 'Playfair Display', serif; 
+      font-weight: 700; 
+      line-height: 1.25; 
+      color: #00374a; }
+    p {
+       color: #4a6fa5;
+        margin-bottom: 0.85rem; }
+
+    /* Page layout */
+    .page-wrap {
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem 4rem;
+      align-items: start;
+    }
+
+    .pe-toc {
+      background: #ffffff;
+      border: 1px solid #cce3f0;
+      border-radius: 18px;
+      box-shadow: 0 10px 28px rgba(0, 55, 74, 0.08);
+      padding: 1.5rem 1.5rem 1.5rem 1.4rem;
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+    .pe-toc h2 {
+      font-size: 0.92rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #0077b6;
+      margin-bottom: 1rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 700;
+    }
+    .pe-toc ol {
+      padding-left: 1.1rem;
+      margin: 0;
+      list-style: decimal;
+      color: #1a2e44;
+    }
+    .pe-toc ol li {
+      margin-bottom: 0.65rem;
+    }
+    .pe-toc ol li a {
+      color: #00374a;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+    .pe-toc ol li a:hover,
+    .pe-toc ol li a:focus {
+      color: #0077b6;
+      text-decoration: underline;
+    }
+
+    .main-content {
+      padding: 3rem 0 4rem;
+      max-width: 860px;
+      margin: 0;
+      width: 100%;
+    }
+
+    /* Card sections */
+    .ed-section {
+      background: #ffffff;
+      border-radius: 24px;
+      box-shadow: 0 18px 40px rgba(0, 55, 74, 0.10);
+      border: 1px solid rgba(0, 119, 182, 0.08);
+      padding: 2rem 2rem 2.5rem;
+      margin-bottom: 2rem;
+      scroll-margin-top: 80px;
+    }
+    .ed-section + .ed-section {
+      margin-top: 1.5rem;
+    }
+
+    /* Page header */
+    .val-header { 
+      border-bottom: 2px solid #cce3f0; 
+      padding-bottom: 2rem; 
+      margin-bottom: 3rem; }
+    .val-header .label { 
+      font-size: 0.72rem; 
+      letter-spacing: 0.12em; 
+      text-transform: uppercase; 
+      color: #00b4d8; 
+      margin-bottom: 0.5rem; 
+      font-weight: 600; }
+    .val-header h1 { 
+      font-size: 2.2rem; 
+      margin-bottom: 0.4rem; }
+    .val-header .meta { 
+      font-size: 0.85rem;
+       color: #8aa5c0; }
+
+    /* Editor section */
+    .ed-section { 
+      margin-bottom: 0; 
+      scroll-margin-top: 80px; }
+    .ed-section h2 { 
+      font-size: 1.5rem; 
+      margin-bottom: 0.2rem; }
+    .ed-section hr  { 
+      height: 3px; 
+      background: linear-gradient(to right, #0077b6, #e0f4fd);
+      border: none; 
+      margin: 0.65rem 0 1.5rem; 
+      border-radius: 2px; }
+    .ed-section h3  { 
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem; 
+      font-weight: 600; 
+      color: #0077b6; 
+      margin: 1.2rem 0 0.4rem; }
+
+    /* Tech tags */
+    .tech-tags { 
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 0.4rem; 
+      margin: 0.65rem 0; }
+    .tag {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem; padding: 0.18rem 0.6rem;
+      border-radius: 20px; border: 1px solid;
+    }
+    .tag-html { 
+      background: #fef3c7; color: #92400e;
+      border-color: #fcd34d; }
+    .tag-css  { 
+      background: #dbeafe;
+      color: #1e40af;
+      border-color: #93c5fd; }
+    .tag-js   { 
+      background: #d1fae5;
+      color: #065f46;
+      border-color: #6ee7b7; }
+    .tag-a11y { 
+      background: #ede9fe; 
+      color: #5b21b6; 
+      border-color: #c4b5fd; }
+
+    /* buttons */
+    .page-link {
+      display: inline-flex; 
+      align-items: center; 
+      gap: 0.35rem;
+      background: #e0f4fd;
+      border: 1px solid #cce3f0;
+      color: #0077b6;
+       padding: 0.35rem 0.85rem;
+      border-radius: 6px; 
+      font-size: 0.8rem; 
+      font-weight: 600;
+      margin: 0.4rem 0.35rem 0.4rem 0;
+      transition: all 0.2s; 
+      text-decoration: none;
+    }
+    .page-link:hover { 
+      background: #0077b6; 
+      color: #fff; 
+      text-decoration: none; }
+
+    /* Meeting table */
+    .meet-table { 
+      width: 100%; 
+      border-collapse: collapse; 
+      font-size: 0.83rem; 
+      margin-top: 1rem; }
+    .meet-table th { 
+      background: #e0f4fd; color: #00374a;
+      font-family: 'DM Sans', sans-serif; 
+      font-size: 0.72rem; 
+      text-transform: uppercase; 
+      letter-spacing: 0.06em; 
+      padding: 0.6rem 0.9rem; 
+      text-align: left; 
+      border-bottom: 2px solid #cce3f0; }
+    .meet-table td { 
+      padding: 0.7rem 0.9rem; 
+      border-bottom: 1px solid #cce3f0; 
+      color: #00374a; 
+      vertical-align: top; }
+    .meet-table tr:last-child td { 
+      border-bottom: none; }
+    .meet-table tr:hover td { 
+      background: #e0f4fd; }
+
+    /* Callout */
+    .callout { 
+      background: #00374a; 
+      border-left: 3px solid #0077b6; 
+      border-radius: 0 10px 10px 0; 
+      padding: 1rem 1.2rem; 
+      margin: 1.2rem 0; 
+      font-size: 0.88rem; 
+      color: #fff; }
+
+    /* References */
+    .ref-list { 
+      list-style: decimal; 
+      padding-left: 1.5rem; }
+    .ref-list li { 
+      margin-bottom: 0.5rem; 
+      font-size: 0.85rem; 
+      color: #4a6fa5; }
+
+    /* Footer */
+    .val-footer { 
+      background: #00374a; 
+      color: rgba(255,255,255,0.6); 
+      padding: 1.5rem 4rem; 
+      display: flex; 
+      justify-content: space-between; 
+      flex-wrap: wrap; 
+      gap: 1rem; 
+      font-size: 0.82rem; }
+    .val-footer a { 
+      color: rgba(255,255,255,0.75); }
+    .val-footer a:hover { 
+      color: #fff; 
+      text-decoration: none; }
+    .compliance-list{
+      list-style: disc;
+      padding-left: 1.5rem;
+      color: #4a6fa5;
+      line-height: 2.2;
+      font-size: 0.9rem;
+    }
+    .highlight{
+      color:#00374a;
+    }
+    .back-top { 
+      display: inline-block; 
+      color: #8aa5c0; 
+      font-size: 0.78rem; 
+      margin-top: 3rem; }
+    .back-top:hover { 
+      color: #0077b6; 
+      text-decoration: none; }
+
+    @media (max-width: 860px) {
+      .page-wrap { grid-template-columns: 1fr; padding: 0 1.25rem 2.5rem; }
+      .pe-toc { position: static; top: auto; margin-bottom: 1.5rem; }
+      .main-content { padding: 2rem 0 3rem; }
+      .val-footer { padding: 1.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <a href="home.html" class="site-brand" aria-label="AquaAction home">
+      <img src="logo.jpg" alt="AquaAction logo – water droplet icon" />
+      <div class="site-brand-text">
+        <span class="site-title">AquaAction</span>
+        <span class="site-sdg-badge">SDG 6 · Clean Water &amp; Sanitation</span>
+      </div>
+    </a>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="ais.html">Impact Simulator</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="pageEditor_ST3.html" class="active">Page Editor</a></li>
+        <li><a href="validation_ST3.html">Validation</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<span id="top"></span>
+
+<div class="page-wrap">
+  <aside class="pe-toc" aria-label="Page contents">
+    <h2>Page contents</h2>
+    <ol>
+      <li><a href="#overview">Student Details &amp; Role</a></li>
+      <li><a href="#pages-list">Completed Pages &amp; Tasks</a></li>
+      <li><a href="#feedback-desc">Feedback </a></li>
+      <li><a href="#team-desc">Team Page</a></li>
+      <li><a href="#content-desc">Content Page</a></li>
+      <li><a href="#challenges">Challenges &amp; Lessons Learned</a></li>
+      <li><a href="#accessibility">Accessibility</a></li>
+      <li><a href="#compliance">JANET Compliance</a></li>
+      <li><a href="#meetings">Meeting Log</a></li>
+      <li><a href="#references">References</a></li>
+    </ol>
+  </aside>
+
+<div class="main-content">
+
+      <!-- Page header -->
+      <div class="val-header">
+        <div class="label">Web Design &amp; Development · 2025/26</div>
+        <h1>Page Editor</h1>
+        <div class="meta">Ritika Shrestha · AquaAction SDG 6 · University of Westminster<br />Module: Web Design and Development · Dr Daphne Economou</div>
+      </div>
+      <!-- ── OVERVIEW ── -->
+      <section class="ed-section" id="overview" aria-labelledby="ov-heading">
+        <h2 id="ov-heading">Student Details &amp; Role</h2>
+        <hr />
+        <p><strong>Name:</strong> Ritika Shrestha<br />
+        <strong>Student Role:</strong> Student 3</p>
+        <p><strong>Student ID:</strong> w2124058<br />
+        <strong>Assigned Tasks:</strong> Feedback · Team Page · Content Page · Page Editor · Validation Page</p>
+        <p>As Student 3, my primary responsibility was to build the community-facing pages of the AquaAction website — the Feedback Program Directory and the Team page — alongside my own individual Content Page covering Sanitation &amp; Hygiene for SDG 6.</p>
+      </section>
+
+      <!-- ── PAGES LIST ── -->
+      <section class="ed-section" id="pages-list" aria-labelledby="pl-heading">
+        <h2 id="pl-heading">Completed Pages &amp; Tasks</h2>
+        <hr />
+        <ul style="list-style:none; padding:0; line-height:2.2; font-size:0.92rem; color:var(--text2);">
+          <li>feedback.html — Feedback &amp; Program Directory Page</li>
+          <li>team.html — Team Page</li>
+          <li>content_ST3.html — Individual Content Page (Sanitation &amp; Hygiene)</li>
+          <li>pageEditor_ST3.html — This Page Editor</li>
+          <li>validation_ST3.html — Validation Page</li>
+        </ul>
+        <div style="margin-top:1rem;">
+          <a href="feedback.html" class="page-link" target="_blank">↗ Feedback</a>
+          <a href="team.html" class="page-link" target="_blank">↗ Team</a>
+          <a href="content_ST3.html" class="page-link" target="_blank">↗ Content ST3</a>
+          <a href="validation_ST3.html" class="page-link" target="_blank">↗ Validation</a>
+        </div>
+      </section>
+
+      <!-- ── FEEDBACK PAGE ── -->
+      <section class="ed-section" id="feedback-desc" aria-labelledby="fb-heading">
+        <h2 id="fb-heading">Feedback &amp; Program Directory</h2>
+        <hr />
+
+        <h3>HTML Structure</h3>
+        <div class="tech-tags">
+          <span class="tag tag-html">&lt;section&gt;</span>
+          <span class="tag tag-html">&lt;article&gt;</span>
+          <span class="tag tag-html">&lt;fieldset&gt;</span>
+          <span class="tag tag-html">&lt;legend&gt;</span>
+          <span class="tag tag-html">type="email/tel/date"</span>
+          <span class="tag tag-html">&lt;datalist&gt;</span>
+          <span class="tag tag-html">&lt;select multiple&gt;</span>
+        </div>
+        <p>The page is divided into three clearly separated <code>&lt;section&gt;</code> elements: the scrollable programme directory, the ratings &amp; reviews summary, and the feedback form. Form fields are grouped into two <code>&lt;fieldset&gt;</code> elements ("Personal Details" and "Feedback Details") using <code>&lt;legend&gt;</code> for semantic grouping and accessibility. A <code>&lt;datalist&gt;</code> provides searchable topic suggestions, and a <code>&lt;select multiple&gt;</code> allows users to select multiple interest areas.</p>
+
+        <h3>CSS Techniques</h3>
+        <div class="tech-tags">
+          <span class="tag tag-css">CSS Grid</span>
+          <span class="tag tag-css">Flexbox</span>
+          <span class="tag tag-css">overflow-y: auto (scroll)</span>
+          <span class="tag tag-css">:hover transitions</span>
+          <span class="tag tag-css">Embedded &lt;style&gt;</span>
+          <span class="tag tag-css">CSS Variables (global)</span>
+        </div>
+        <p>Page-specific embedded CSS controls the scrollable programme area using <code>max-height</code> and <code>overflow-y: auto</code>. Programme cards use CSS Grid with auto-fill for a responsive layout. Form inputs use <code>:focus</code> states with a box-shadow ring consistent with the site's blue colour palette. All styles use the Global CSS variables for colours, ensuring visual consistency without overriding shared rules.</p>
+
+        <h3>JavaScript Interactivity</h3>
+        <div class="tech-tags">
+          <span class="tag tag-js">Live character counter</span>
+          <span class="tag tag-js">Custom JS validation</span>
+          <span class="tag tag-js">Submission confirmation</span>
+          <span class="tag tag-js">DOM manipulation</span>
+          <span class="tag tag-js">Event listeners</span>
+        </div>
+        <p>Three JavaScript features are implemented: (1) a live character counter that updates on every <code>input</code> event and turns red when fewer than 50 characters remain; (2) custom form validation that checks for empty name, invalid email format (regex), missing programme selection, and short messages — displaying error messages next to each relevant field; (3) a submission confirmation that hides the form and shows a success message via DOM manipulation when all fields are valid. No data is sent to any server.</p>
+
+        <a href="feedback.html" class="page-link" target="_blank">↗ View Feedback Page</a>
+        <a href="validation_ST3.html#feedback-val" class="page-link">↗ Validation Evidence</a>
+      </section>
+
+      <!-- ── TEAM PAGE ── -->
+      <section class="ed-section" id="team-desc" aria-labelledby="tm-heading">
+        <h2 id="tm-heading">Team Page</h2>
+        <hr />
+
+        <h3>HTML Structure</h3>
+        <div class="tech-tags">
+          <span class="tag tag-html">&lt;div role="listitem"&gt;</span>
+          <span class="tag tag-html">tabindex="0"</span>
+          <span class="tag tag-html">aria-label</span>
+          <span class="tag tag-html">aria-hidden="true"</span>
+          <span class="tag tag-html">&lt;aside&gt; section</span>
+        </div>
+        <p>Each team member is a <code>&lt;div&gt;</code> with <code>tabindex="0"</code> and <code>role="listitem"</code> so it participates in keyboard navigation and screen reader announcements. The expandable details panel is a sibling element hidden by CSS and revealed on hover/focus — no JavaScript is required for the interaction.</p>
+
+        <h3>CSS Techniques</h3>
+        <div class="tech-tags">
+          <span class="tag tag-css">max-height transition</span>
+          <span class="tag tag-css">opacity transition</span>
+          <span class="tag tag-css">:hover / :focus selectors</span>
+          <span class="tag tag-css">transform: translateY</span>
+          <span class="tag tag-css">CSS Grid (auto-fill)</span>
+          <span class="tag tag-css">:focus-visible outline</span>
+        </div>
+        <p>The hover-expand interaction uses the CSS sibling combinator: <code>.member-block:hover .member-details</code> transitions <code>max-height</code> from 0 to 320px and <code>opacity</code> from 0 to 1. Using <code>max-height</code> (rather than <code>height: auto</code>) enables smooth CSS animation. A <code>transform: translateY(-5px)</code> lifts the card on hover, and a blue <code>box-shadow</code> glow provides clear visual feedback. The <code>:focus-visible</code> pseudo-class ensures a keyboard focus ring appears only for keyboard users, not mouse users.</p>
+
+        <h3>Design Rationale</h3>
+        <p>The CSS-only hover-expand pattern was chosen because the Team page is informational — users should be able to scan members quickly without additional clicks. It also degrades gracefully without JavaScript. The design deliberately uses the same wave-bottom banner as other pages to reinforce the shared visual identity established by Student 1.</p>
+
+        <a href="team.html" class="page-link" target="_blank">↗ View Team Page</a>
+        <a href="validation_ST3.html#team-val" class="page-link">↗ Validation Evidence</a>
+      </section>
+
+      <!-- ── CONTENT PAGE ── -->
+      <section class="ed-section" id="content-desc" aria-labelledby="ct-heading">
+        <h2 id="ct-heading">Individual Content Page — Sanitation &amp; Hygiene</h2>
+        <hr />
+
+        <h3>HTML Structure</h3>
+        <div class="tech-tags">
+          <span class="tag tag-html">&lt;article&gt;</span>
+          <span class="tag tag-html">&lt;aside&gt; + &lt;nav&gt;</span>
+          <span class="tag tag-html">href="#section-id" anchors</span>
+          <span class="tag tag-html">scroll-margin-top</span>
+          <span class="tag tag-html">&lt;section id="..."&gt;</span>
+        </div>
+        <p>The page uses a two-column CSS Grid layout: a sticky <code>&lt;aside&gt;</code> containing an <code>&lt;nav aria-label="Content page sections"&gt;</code> with internal anchor links, and an <code>&lt;article&gt;</code> divided into six sections each with a unique <code>id</code>. Internal links use <code>href="#section-id"</code> and <code>scroll-margin-top: 90px</code> to account for the sticky header. All six section IDs are matched by corresponding sidebar links.</p>
+
+        <h3>CSS Techniques</h3>
+        <div class="tech-tags">
+          <span class="tag tag-css">CSS Grid (2-col)</span>
+          <span class="tag tag-css">position: sticky</span>
+          <span class="tag tag-css">position: fixed (go-top)</span>
+          <span class="tag tag-css">Image hover: scale(1.02)</span>
+          <span class="tag tag-css">clamp() font sizes</span>
+        </div>
+        <p>The sticky sidebar uses <code>position: sticky; top: 80px</code> to follow the scroll without obscuring the fixed header. The "Go to Top" button is positioned with <code>position: fixed; bottom: 2rem; right: 2rem</code> — implemented in pure HTML/CSS as specified (no JavaScript). Article images are arranged in a responsive 2×2 grid with hover <code>transform: scale(1.02)</code> and a box-shadow for depth. Stat cards use a three-column grid consistent with the home page's stat-strip style.</p>
+
+        <h3>Content Originality</h3>
+        <p>All content was written originally for this coursework. The page covers sanitation statistics, the human impact of poor WASH access, six student-actionable steps, and everyday conservation habits — directly addressing SDG 6 with an action-focused, non-UN-source approach as required by the brief.</p>
+
+        <a href="content_ST3.html" class="page-link" target="_blank">↗ View Content Page</a>
+        <a href="validation_ST3.html#content-val" class="page-link">↗ Validation Evidence</a>
+      </section>
+
+      <!-- ── CHALLENGES ── -->
+      <section class="ed-section" id="challenges" aria-labelledby="ch-heading">
+        <h2 id="ch-heading">Challenges &amp; Lessons Learned</h2>
+        <hr />
+        <h3>CSS Hover-Expand Animation</h3>
+        <p>Animating <code>height: auto</code> is not possible with CSS transitions. I initially set a large fixed <code>max-height</code> but the animation felt slow and mechanical. Through testing I found that <code>max-height: 320px</code> with a <code>cubic-bezier(0.4, 0, 0.2, 1)</code> easing created a natural, elastic feel. Setting this value requires knowing the panel content height in advance.</p>
+
+        <h3>Form Validation Edge Cases</h3>
+        <p>The email regex <code>/^[^\s@]+@[^\s@]+\.[^\s@]+$/</code> caught most invalid emails but I initially missed the case where a user submits a form after correcting an error — the old error message stayed visible. I fixed this by calling <code>clearError()</code> on each field's <code>input</code> event, so errors disappear as users type corrections.</p>
+
+        <h3>Lesson Learned</h3>
+        <p>Writing clear HTML comments explaining what each CSS class does (and why) made it much easier to review and edit later. Code comments are not just for the marker — they are for your future self at 11pm before a deadline.</p>
+      </section>
+
+      <!-- ── ACCESSIBILITY ── -->
+      <section class="ed-section" id="accessibility" aria-labelledby="a11y-heading">
+        <h2 id="a11y-heading">Accessibility Considerations</h2>
+        <hr />
+        <div class="tech-tags">
+          <span class="tag tag-a11y">Semantic HTML</span>
+          <span class="tag tag-a11y">alt text (all images)</span>
+          <span class="tag tag-a11y">aria-label / aria-current</span>
+          <span class="tag tag-a11y">aria-live (form feedback)</span>
+          <span class="tag tag-a11y">tabindex="0"</span>
+          <span class="tag tag-a11y">:focus-visible outline</span>
+          <span class="tag tag-a11y">label for/id pairing</span>
+          <span class="tag tag-a11y">Colour contrast (WCAG AA)</span>
+        </div>
+        <p>All images include descriptive <code>alt</code> text written to describe the visual content meaningfully — not just "image". Every form input is paired with an explicit <code>&lt;label for="..."&gt;</code> using matching <code>id</code> attributes. The live character counter uses <code>aria-live="polite"</code> so screen readers announce updates without interrupting. The form success message uses <code>aria-live="assertive"</code> for immediate announcement.</p>
+        <p>Interactive team member blocks use <code>tabindex="0"</code> and <code>:focus-visible</code> to ensure keyboard users can access the hover-expand panels. The active navigation link uses <code>aria-current="page"</code> for screen reader page context.</p>
+        <div class="callout">
+          The site uses the primary text colour <code>#1a2e44</code> on white (<code>#ffffff</code>), achieving a contrast ratio of approximately 13:1 — well above the WCAG AA minimum of 4.5:1 for normal text.
+        </div>
+      </section>
+
+      <!-- ── JANET COMPLIANCE ── -->
+      <section class="ed-section" id="compliance" aria-labelledby="jn-heading">
+        <h2 id="jn-heading">JANET Compliance</h2>
+        <hr />
+        <p>JANET regulations govern appropriate use of university network and web hosting services. My pages comply as follows:</p>
+        <ul style="list-style:disc; padding-left:1.5rem; color:var(--text2); line-height:2.2; font-size:0.9rem;">
+          <li><strong class="highlight">Appropriate content:</strong> All content is educational, factual, and relevant to SDG 6. No offensive, illegal, or harmful material is present.</li>
+          <li><strong class="highlight">Intellectual property:</strong> All written content is original. Images are sourced from Unsplash (Unsplash License — free for use without attribution), referenced in this Page Editor. No copyrighted content is reproduced.</li>
+          <li><strong class="highlight">No commercial activity:</strong> This is a student academic project only, with no advertising, payment processing, or commercial purpose of any kind.</li>
+          <li><strong class="highlight">No personal data collection:</strong> The feedback form does not transmit data to any server. All interaction is client-side JavaScript only — no data is stored, logged, or shared.</li>
+          <li><strong class="highlight">Academic integrity:</strong> All code and written content represents my own original work submitted for this coursework module.</li>
+        </ul>
+      </section>
+
+      <!-- ── MEETING LOG ── -->
+      <section class="ed-section" id="meetings" aria-labelledby="mg-heading">
+        <h2 id="mg-heading">Group Meetings &amp; Contribution Log</h2>
+        <hr />
+        <p>Six group meetings were held over the project period. My individual contributions are documented below.</p>
+        <div style="overflow-x:auto;">
+          <table class="meet-table" aria-label="Group meetings log">
+            <thead>
+              <tr>
+                <th>#</th><th>Date &amp; Time</th><th>Format</th><th>Objective</th><th>Attended</th><th>My Contribution</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>1</td><td>March 9 2026 · 10 AM</td><td>Face-to-face</td><td>Agree SDG topic and assign roles</td><td>Yes</td><td>Proposed SDG 6, agreed to take student 3 role covering feedback and team pages.</td></tr>
+              <tr><td>2</td><td>March 13 2026 · 2:00 PM</td><td>Online</td><td>Agree colour palette and site name</td><td>Yes</td><td>Proposed the cyan water theme.</td></tr>
+              <tr><td>3</td><td>March 20 2026 · 12:30 PM</td><td>Online</td><td>Share template and CSS with team.</td><td>Yes</td><td>Shared style.css</td></tr>
+              <tr><td>4</td><td>March 26 2026 · 11:00 AM</td><td>Face-to-face</td><td>Progress review - check all links across all students.</td><td>Yes</td><td>Tested navigation across all student pages.</td></tr>
+              <tr><td>5</td><td>April 1 2026 · 4:00 PM</td><td>Online</td><td>Review accessibility and validation</td><td>Yes</td><td>Validated all three of my pages; corrected two missing closing tags found by the validator.</td></tr>
+              <tr><td>6</td><td>April 3 2026 · 12:00 PM</td><td>Face-to-face</td><td>Final review before submission</td><td>Yes</td><td>Confirmed all URLs work correctly.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ── REFERENCES ── -->
+      <section class="ed-section" id="references" aria-labelledby="rf-heading">
+        <h2 id="rf-heading">References</h2>
+        <hr />
+        <ol class="ref-list">
+          <li>Economou, D. (2025/26). <em>Web Design and Development — Lecture Notes and Seminar Materials</em>. University of Westminster, Blackboard VLE.</li>
+          <li>MDN Web Docs. (2024). <em>HTML forms</em>. Available at: <a href="https://developer.mozilla.org/en-US/docs/Learn/Forms" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Learn/Forms</a></li>
+          <li>MDN Web Docs. (2024). <em>CSS Transitions</em>. Available at: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions" target="_blank" rel="noopener">https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_transitions</a></li>
+          <li>W3C. (2024). <em>Web Content Accessibility Guidelines (WCAG) 2.1</em>. Available at: <a href="https://www.w3.org/TR/WCAG21/" target="_blank" rel="noopener">https://www.w3.org/TR/WCAG21/</a></li>
+          <li>WHO. (2023). <em>Sanitation Fact Sheet</em>. Available at: <a href="https://www.who.int/news-room/fact-sheets/detail/sanitation" target="_blank" rel="noopener">https://www.who.int/news-room/fact-sheets/detail/sanitation</a></li>
+          <li>UNICEF. (2024). <em>WASH Programme</em>. Available at: <a href="https://www.unicef.org/wash" target="_blank" rel="noopener">https://www.unicef.org/wash</a></li>
+          <li>Unsplash. (2024). Images used in content_ST3.html. <a href="https://unsplash.com" target="_blank" rel="noopener">https://unsplash.com</a> [Unsplash License].</li>
+        </ol>
+      </section>
+
+      <a href="#top" class="back-top">↑ Back to top</a>
+  </div>
+</div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-inner">
+        <div class="footer-col">
+          <h3>AquaAction</h3>
+          <p>A student project for SDG 6: Clean Water &amp; Sanitation.</p>
+          <p>University of Westminster, 2025/26</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <a href="home.html">Home</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="ais.html">Impact Simulator</a>
+          <a href="feedback.html">Feedback</a>
+          <a href="team.html">Team</a>
+          <a href="pageEditor_ST3.html">Page Editor</a>
+          <a href="validation_ST3.html">Validation</a>
+        </div>
+        <div class="footer-col">
+          <h4>This Page</h4>
+          <a href="pageEditor_ST3.html">Page Editor</a>
+          <a href="validation_ST3.html">Validation</a>
+        </div>
+        <div class="footer-col">
+          <h4>Student 3 Details</h4>
+          <p>Name: Ritika Shrestha</p>
+          <p>Student ID: w2124058</p>
+          <p>Role: Feedback &amp; Team Pages</p>
+          <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" rel="noopener">Accessibility (WCAG 2.1)</a>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 AquaAction – University of Westminster</span>
+        <span>SDG 6: Clean Water &amp; Sanitation</span>
+      </div>
+    </footer>
+
+</body>
+</html>

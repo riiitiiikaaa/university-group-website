@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AquaLife Simulator</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    .cards-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:1rem;
+      max-width:1000px;
+      margin:auto;
+    }
+
+    .action-card {
+      background:var(--card);
+      border-radius:12px;
+      overflow:hidden;
+      cursor:pointer;
+      border:1px solid rgba(255,255,255,0.1);
+      transition:0.3s;
+    }
+
+
+    .action-card:hover {
+      transform:translateY(-5px);
+      border-color:var(--accent);
+    }
+
+    .action-card:focus {
+      outline:2px solid var(--accent);
+    }
+
+    .action-card.selected {
+      border-color:var(--accent);
+      box-shadow:0 0 10px var(--accent);
+    }
+
+    .card-thumb {
+      width:100%;
+      height:150px;
+      object-fit:cover;
+      display:block;
+    }
+
+    .card-body { padding:1rem; }
+
+    .card-title {
+      font-size:1.1rem;
+      margin-bottom:0.5rem;
+    }
+
+
+    .card-desc {
+      font-size:0.85rem;
+      opacity:0.8;
+      margin-bottom:0.5rem;
+    }
+
+  
+    .points {
+      font-size:0.75rem;
+      color:var(--accent);
+    }
+
+   
+    .feedback-panel {
+      margin-top:2rem;
+      text-align:center;
+    }
+
+  
+    .score {
+      font-size:3rem;
+      color:var(--accent);
+    }
+
+
+    .reset-btn {
+      margin-top:1rem;
+      padding:0.5rem 1rem;
+      border:none;
+      border-radius:20px;
+      cursor:pointer;
+      background:var(--accent);
+      color:#000;
+      font-weight:bold;
+    }
+
+   
+    body {
+      transition: background-image 0.5s ease-in-out;
+      background-size: cover;
+      background-position: center;
+      min-height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="home.html" class="site-brand" aria-label="AquaAction home">
+      <img src="images/logo.jpg" alt="AquaAction logo – water droplet icon" />
+      <div class="site-brand-text">
+        <span class="site-title">AquaAction</span>
+        <span class="site-sdg-badge">SDG 6 · Clean Water &amp; Sanitation</span>
+      </div>
+    </a>
+    <nav aria-label="Main navigation">
+      <ul>
+        <li><a href="Splashscreen.html"></a></li>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="gallery.html">Gallery</a></li>
+        <li><a href="ais.html" class="active">Impact Simulator</a></li>
+        <li><a href="feedback.html">Feedback</a></li>
+        <li><a href="team.html">Team</a></li>
+        <li><a href="profile.html">User Profile</a></li>
+        <li><a href="sitemap.html">Sitemap</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <h1>Action Impact Simulator</h1>
+
+
+  <section class="cards-grid" aria-label="Action cards">
+    <div class="action-card" role="button" tabindex="0" aria-pressed="false" data-points="2">
+      <img src="images/ConserveWater.jpg" alt="Turn off tap" class="card-thumb">
+      <div class="card-body">
+        <h2 class="card-title">Turn Off the Tap</h2>
+        <p class="card-desc">Save water while brushing</p>
+        <span class="points">💧 2 pts</span>
+      </div>
+    </div>
+
+    <div class="action-card" role="button" tabindex="0" aria-pressed="false" data-points="3">
+      <img src="images/Reusable-Bottles.jpg" alt="Reusable bottle" class="card-thumb">
+      <div class="card-body">
+        <h2 class="card-title">Reusable Bottle</h2>
+        <p class="card-desc">Avoid plastic waste</p>
+        <span class="points">💧 3 pts</span>
+      </div>
+    </div>
+
+    <div class="action-card" role="button" tabindex="0" aria-pressed="false" data-points="4">
+      <img src="images/Harvesting.jpg" alt="Rainwater harvesting" class="card-thumb">
+      <div class="card-body">
+        <h2 class="card-title">Harvest Rainwater</h2>
+        <p class="card-desc">Collect rainwater</p>
+        <span class="points">💧 4 pts</span>
+      </div>
+    </div>
+
+    <div class="action-card" role="button" tabindex="0" aria-pressed="false" data-points="3">
+      <img src="images/awarness.jpg" alt="Awareness" class="card-thumb">
+      <div class="card-body">
+        <h2 class="card-title">Spread Awareness</h2>
+        <p class="card-desc">Educate others</p>
+        <span class="points">💧 3 pts</span>
+      </div>
+    </div>
+
+    <div class="action-card" role="button" tabindex="0" aria-pressed="false" data-points="5">
+      <img src="images/Volunteer.jpg" alt="Volunteer cleanup" class="card-thumb">
+      <div class="card-body">
+        <h2 class="card-title">Clean-Up Drive</h2>
+        <p class="card-desc">Join community cleanups</p>
+        <span class="points">💧 5 pts</span>
+      </div>
+    </div>
+
+    <div class="action-card" role="button" tabindex="0" aria-pressed="false" data-points="5">
+      <img src="images/Donating_water.jpg" alt="Donate water charity" class="card-thumb">
+      <div class="card-body">
+        <h2 class="card-title">Support Charity</h2>
+        <p class="card-desc">Help fund clean water</p>
+        <span class="points">💧 5 pts</span>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="feedback-panel" aria-live="polite">
+    <h2>Your Impact</h2>
+    <div class="score" id="score">0</div>
+    <p id="message">Select actions to see your impact</p>
+    <button class="reset-btn" onclick="resetAll()">Reset</button>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>AquaAction</h4>
+      <p>A student project for SDG 6: Clean Water &amp; Sanitation.</p>
+      <p>University of Westminster, 2025/26</p>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="home.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="ais.html">Impact Simulator</a>
+      <a href="feedback.html">Feedback</a>
+      <a href="team.html">Team</a>
+      <a href="profile.html">User Profile</a>
+      <a href="sitemap.html">Sitemap</a>
+    </div>
+    <div class="footer-col">
+      <h4>This Page</h4>
+      <a href="pageeditor_ST2.html">Page Editor</a>
+      <a href="validation_ST2.html">Validation</a>
+    </div>
+    <div class="footer-col">
+      <h4>Student 1 Details</h4>
+      <p>Name: Sadiksha KC</p>
+      <p>Student ID: W2122051</p>
+      <p>Role: Splash screen & Simulator</p>
+      <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" rel="noopener">
+        Accessibility (WCAG 2.1)
+      </a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2026 AquaAction – University of Westminster</span>
+    <span>SDG 6: Clean Water &amp; Sanitation</span>
+  </div>
+</footer>
+
+<script>
+  const cards = document.querySelectorAll('.action-card');
+  const scoreEl = document.getElementById('score');
+  const messageEl = document.getElementById('message');
+
+  cards.forEach(card => {
+    card.addEventListener('click', () => toggleCard(card));
+    card.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggleCard(card);
+      }
+    });
+  });
+
+  function toggleCard(card) {
+    card.classList.toggle('selected');
+    const pressed = card.classList.contains('selected');
+    card.setAttribute('aria-pressed', pressed);
+    updateScore();
+  }
+
+  function updateScore() {
+    let total = 0;
+    document.querySelectorAll('.action-card.selected').forEach(card => {
+      total += parseInt(card.dataset.points);
+    });
+
+    scoreEl.textContent = total;
+
+    let msg = "Select actions to see your impact";
+    let bg = '';
+
+    if(total > 0 && total <= 7) {
+      msg = "Low Impact 🌊";
+      bg = 'url("images/bg_low.jpg")';
+    } else if(total <= 14) {
+      msg = "Medium Impact 💧";
+      bg = 'url("images/bg_medium.jpg")';
+    } else if(total > 14) {
+      msg = "High Impact ⚡";
+      bg = 'url("images/bg_high.jpg")';
+    }
+
+    messageEl.textContent = msg;
+    document.body.style.backgroundImage = bg;
+  }
+
+  function resetAll() {
+    document.querySelectorAll('.action-card').forEach(card => {
+      card.classList.remove('selected');
+      card.setAttribute('aria-pressed', 'false');
+    });
+    updateScore();
+  }
+
+  
+  updateScore();
+</script>
+</body>
+</html>

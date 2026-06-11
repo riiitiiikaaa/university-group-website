@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Validation – Student 4 | AquaAction</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body {
+      background: #f4f7f9;
+    }
+
+    .val-header {
+      background: #0ea5e3; /* Using Student 4's primary aqua */
+      color: #ffffff;
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+
+    .val-header h1,
+    .val-header p {
+      color: #ffffff;
+    }
+
+    .val-wrap {
+      max-width: 900px;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page-wrap {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 2.5rem auto 4rem;
+      padding: 0 1.5rem;
+      align-items: start;
+    }
+
+    .pe-toc {
+      background: #ffffff;
+      border: 1px solid #cce3f0;
+      border-radius: 18px;
+      box-shadow: 0 10px 28px rgba(0, 55, 74, 0.08);
+      padding: 1.5rem;
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+
+    .pe-toc h2 {
+      font-size: 0.92rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #075985;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .pe-toc ol {
+      padding-left: 1.1rem;
+      margin: 0;
+      list-style: decimal;
+      color: #475569;
+    }
+
+    .pe-toc ol li {
+      margin-bottom: 0.65rem;
+    }
+
+    .pe-toc ol li a {
+      color: #0ea5e3;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .pe-toc ol li a:hover {
+      color: #075985;
+      text-decoration: underline;
+    }
+
+    .val-section {
+      background: #ffffff;
+      border: 1px solid rgba(0, 119, 182, 0.08);
+      border-radius: 12px;
+      box-shadow: 0 18px 40px rgba(0, 55, 74, 0.08);
+      padding: 2rem 2.2rem;
+      margin-bottom: 2.5rem;
+      scroll-margin-top: 100px;
+    }
+
+    .val-section h2 {
+      color: #075985;
+      margin-bottom: 1rem;
+      font-family: 'Epilogue', sans-serif;
+    }
+
+    .page-link {
+      display: inline-block;
+      background: #0ea5e3;
+      color: white;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-right: 0.5rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    .page-link:hover {
+      background: #075985;
+    }
+
+    .validation-img {
+      width: 100%;
+      max-width: 700px;
+      border: 2px solid #b0c8d8;
+      border-radius: 8px;
+      margin-top: 1rem;
+      display: block;
+    }
+
+    .reflection-box {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border-left: 5px solid #0ea5e3;
+    }
+
+    .go-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #075985;
+      color: white;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    @media (max-width: 850px) {
+      .page-wrap { grid-template-columns: 1fr; }
+      .pe-toc { position: static; margin-bottom: 2rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="site-brand">
+        <img src="images/logo.jpg" alt="AquaAction logo">
+        <div class="site-brand-text">
+          <span class="site-title">AquaAction</span>
+          <span class="site-sdg-badge">SDG 6 · Clean Water &amp; Sanitation</span>
+        </div>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="ais.html">Impact Simulator</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="profile.html">User Profile</a></li>
+          <li><a href="sitemap.html">Sitemap</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div id="top"></div>
+
+  <div class="val-header">
+    <h1>Validation Evidence – Student 4</h1>
+    <p>W3C HTML standards verification for pages implemented by Sampanna Kunwar</p>
+  </div>
+
+  <div class="page-wrap">
+    <aside class="pe-toc" aria-label="Validation page contents">
+      <h2>Page contents</h2>
+      <ol>
+        <li><a href="#profile">User Profile</a></li>
+        <li><a href="#sitemap">SVG Sitemap</a></li>
+        <li><a href="#content">Content Page</a></li>
+        <li><a href="#reflection">Technical Reflection</a></li>
+      </ol>
+    </aside>
+
+    <div class="val-wrap">
+
+      <!-- PROFILE -->
+      <section class="val-section" id="profile">
+        <h2>profile.html</h2>
+
+        <a href="profile.html" class="page-link" target="_blank">View Page</a>
+        <a href="pageEditor_ST4.html#profile-tech" class="page-link">Editor Notes</a>
+
+        <p>
+          <strong>File:</strong> <code>profile.html</code><br />
+          <strong>Validator used:</strong>
+          <a href="https://validator.w3.org/" target="_blank">W3C Markup Validation Service</a>
+        </p>
+
+        <img src="Images\validation content.png" alt="Validation result for profile.html" class="validation-img">
+
+        <p>This page uses JavaScript prompts for data collection. I validated the core HTML structure to ensure that the landmarks (header, main, footer) and the hidden profile output cards were correctly nested. The result confirms the markup is compliant with HTML5 standards.</p>
+      </section>
+
+      <!-- SITEMAP -->
+      <section class="val-section" id="sitemap">
+        <h2>sitemap.html</h2>
+
+        <a href="sitemap.html" class="page-link" target="_blank">View Page</a>
+        <a href="pageEditor_ST4.html#sitemap-tech" class="page-link">Editor Notes</a>
+
+        <p>
+          <strong>File:</strong> <code>sitemap.html</code><br />
+          <strong>Validator used:</strong>
+          <a href="https://validator.w3.org/" target="_blank">W3C Markup Validation Service</a>
+        </p>
+
+        <img src="Images\userprofile.png" alt="Validation result for sitemap.html" class="validation-img">
+
+        <p>Validating the sitemap involved checking both the HTML wrapper and the embedded SVG code. I ensured that all SVG paths, rectangles, and anchors were technically accurate. The validator found no errors in the hierarchical tree structure or the interactive nodes.</p>
+      </section>
+
+      <!-- CONTENT -->
+      <section class="val-section" id="content">
+        <h2>content_ST4.html</h2>
+
+        <a href="content_ST4.html" class="page-link" target="_blank">View Page</a>
+        <a href="pageEditor_ST4.html#content-tech" class="page-link">Editor Notes</a>
+
+        <p>
+          <strong>File:</strong> <code>content_ST4.html</code><br />
+          <strong>Validator used:</strong>
+          <a href="https://validator.w3.org/" target="_blank">W3C Markup Validation Service</a>
+        </p>
+
+        <img src="Images\sitemap.png" alt="Validation result for content_ST4.html" class="validation-img">
+
+        <p>The content page validation checked the four content sections, headings, and internal navigation. I ensured that all section IDs for anchor links were unique and that the image alt text was properly formatted. The clean pass confirms a reliable user experience across devices.</p>
+      </section>
+
+  
+      <section class="val-section" id="reflection">
+        <h2>Reflection</h2>
+
+        <div class="reflection-box">
+          <h3>User Profile Development</h3>
+          <p>For <strong>profile.html</strong>, the initial check revealed a duplicate ID error in the output grid. I resolved this by re-naming the card containers to match the specific data categories. Correcting this was vital to ensure the JavaScript DOM selection worked accurately every time the user completes a prompt step.</p>
+          
+          <h3>Visual Sitemap Development</h3>
+          <p>The <strong>sitemap.html</strong> was the most complex to validate due to the hand-coded SVG. I had to fix an attribute error where I used a non-standard stroke property inside the path tag. Moving these properties into the internal CSS block resulted in valid markup and cleaner code maintainability.</p>
+          
+          <h3>Content & Nav Architecture</h3>
+          <p>For <strong>content_ST4.html</strong>, I focused on structural nesting. Validation helped me realize that an anchor tag was improperly wrapping an entire section block. I moved the ID into the section tag itself, which improved both the technical validity and the accuracy of the jump-links in the sticky navigation.</p>
+          
+          <h3>Summary Reflection</h3>
+          <p>This validation phase taught me that technical correctness is the backbone of accessibility. By fixing small syntax errors, I ensured that screen readers and assistive technologies can interpret the site's hierarchy correctly. Following W3C standards from the start of development significantly reduced the time needed for final debugging.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>AquaAction</h3>
+        <p>University of Westminster, 2025/26</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="home.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="sitemap.html">Sitemap</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>This Page</h4>
+        <a href="pageEditor_ST4.html">Page Editor</a>
+        <a href="validation_ST4.html">Validation</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Student 4</h4>
+        <p>Name: Sampanna Kunwar</p>
+        <p>ID: W2124050</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 AquaAction – Westminster Student Project</span>
+    </div>
+  </footer>
+
+  <a href="#top" class="go-top" aria-label="Go back to top">↑ Top</a>
+
+</body>
+
+</html>

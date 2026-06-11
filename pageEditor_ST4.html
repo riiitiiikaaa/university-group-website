@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Editor – Student 4 | Sampanna Kunwar</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Page Editor specific styles - Perfectly matching Student 1's UI */
+    body { background: #f4f7f9; }
+
+    .pe-header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+    .pe-header h1 { color: var(--white); margin-bottom: 0.4rem; }
+    .pe-header p  { color: rgba(255,255,255,0.85); margin: 0; }
+
+    .pe-wrap {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem 4rem;
+      align-items: start;
+    }
+
+    /* Sidebar table of contents */
+    .pe-toc {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      padding: 1.4rem;
+      position: sticky;
+      top: 90px;
+    }
+    .pe-toc h2 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--neutral-mid);
+      margin-bottom: 0.8rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+    }
+    .pe-toc ol { padding-left: 1.2rem; margin: 0; }
+    .pe-toc ol li { margin-bottom: 0.5rem; }
+    .pe-toc ol li a {
+      font-size: 0.88rem;
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .pe-toc ol li a:hover { color: var(--secondary); }
+
+    /* Main content area */
+    .pe-content section {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      padding: 2rem 2.2rem;
+      margin-bottom: 2rem;
+      scroll-margin-top: 90px;
+    }
+
+    .pe-content h2 {
+      font-size: 1.3rem;
+      color: var(--primary);
+      border-bottom: 2px solid var(--neutral-light);
+      padding-bottom: 0.6rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .pe-content h3 {
+      font-size: 1.05rem;
+      margin: 1.2rem 0 0.5rem;
+      color: var(--neutral-dark);
+    }
+
+    .pe-content p, .pe-content li {
+      font-size: 0.93rem;
+      color: var(--neutral-mid);
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--neutral-light);
+      color: var(--primary);
+      border-radius: 4px;
+      padding: 0.15rem 0.55rem;
+      font-size: 0.8rem;
+      font-family: 'Courier New', monospace;
+      margin: 0.1rem;
+    }
+
+    /* Meetings table */
+    .meetings-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 1rem;
+    }
+    .meetings-table th {
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.6rem 0.8rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    .meetings-table td {
+      padding: 0.6rem 0.8rem;
+      border-bottom: 1px solid var(--neutral-light);
+      color: var(--neutral-mid);
+      vertical-align: top;
+    }
+    .meetings-table tr:nth-child(even) td { background: #f9fbfd; }
+
+    /* Page links buttons */
+    .page-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.45rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin: 0.3rem 0.3rem 0.3rem 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .page-link:hover {
+      background: var(--primary-dark);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* Go to top button */
+    .go-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(0,119,182,0.35);
+    }
+
+    @media (max-width: 768px) {
+      .pe-wrap { grid-template-columns: 1fr; }
+      .pe-toc  { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & NAV -->
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="site-brand" aria-label="AquaAction home">
+        <img src="images/logo.jpg" alt="AquaAction logo" />
+        <div class="site-brand-text">
+          <span class="site-title">AquaAction</span>
+          <span class="site-sdg-badge">SDG 6 · Clean Water &amp; Sanitation</span>
+        </div>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="ais.html">Impact Simulator</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="profile.html">User Profile</a></li>
+          <li><a href="sitemap.html">Sitemap</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div id="top"></div>
+
+  <!-- PAGE EDITOR BANNER -->
+  <div class="pe-header">
+    <h1>Page Editor – Student 4</h1>
+    <p>Technical report documenting User Profile logic, SVG architecture, and content implementation.</p>
+  </div>
+
+  <div class="pe-wrap">
+
+    <!-- SIDEBAR TABLE OF CONTENTS -->
+    <aside class="pe-toc" aria-label="Page contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#overview">Student Overview</a></li>
+        <li><a href="#profile-engine">User Profile Logic</a></li>
+        <li><a href="#sitemap-architecture">Sitemap SVG Design</a></li>
+        <li><a href="#content-page">Scarcity &amp; Conservation</a></li>
+        <li><a href="#challenges">Challenges &amp; Lessons</a></li>
+        <li><a href="#accessibility">Accessibility</a></li>
+        <li><a href="#janet">JANET Compliance</a></li>
+        <li><a href="#meetings">Group Meetings Log</a></li>
+        <li><a href="#references">References</a></li>
+      </ol>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="pe-content">
+
+      <!-- 1. Student Overview -->
+      <section id="overview">
+        <h2>1. Student Overview</h2>
+        <h3>Student Details</h3>
+        <p><strong>Name:</strong> Sampanna Kunwar</p>
+        <p><strong>Student ID:</strong> W2124050</p>
+        <p><strong>Role:</strong> Student 4 – User Profile, SVG Sitemap, Content Page</p>
+
+        <h3>My Completed Pages &amp; Tasks</h3>
+        <ul>
+          <li>User Profile Builder (<code>profile.html</code>) – Interactive JavaScript workflow</li>
+          <li>SVG Sitemap (<code>sitemap.html</code>) – Scalable hierarchy with interactive nodes</li>
+          <li>Content Page (<code>content_ST4.html</code>) – Water Scarcity &amp; Conservation</li>
+          <li>Page Editor (<code>pageEditor_ST4.html</code>) – Technical documentation</li>
+          <li>Validation Page (<code>validation_ST4.html</code>) – Evidence of code compliance</li>
+        </ul>
+
+        <h3>Links to Implemented Pages</h3>
+        <a class="page-link" href="profile.html" target="_blank" rel="noopener">User Profile Builder ↗</a>
+        <a class="page-link" href="sitemap.html" target="_blank" rel="noopener">Interactive Sitemap ↗</a>
+        <a class="page-link" href="content_ST4.html" target="_blank" rel="noopener">Scarcity &amp; Conservation ↗</a>
+      </section>
+
+      <!-- 2. User Profile Logic -->
+      <section id="profile-engine">
+        <h2>2. User Profile Logic (JavaScript)</h2>
+        <h3>Technical Implementation</h3>
+        <p>
+          As per <strong>Requirement 4.8</strong>, I developed a non-traditional user onboarding experience. 
+          Instead of standard forms, I utilized the <span class="tag">prompt()</span> method to collect 
+          user details across three distinct categories: Identity, Water Interests, and Conservation Goals.
+        </p>
+        <h3>Logic and DOM Manipulation</h3>
+        <p>
+          Data is stored in a multi-level <strong>JavaScript Object</strong>. I implemented a progressive 
+          reveal system using <span class="tag">document.getElementById</span> to update the profile 
+          summary in real-time. The <strong>Progress Bar</strong> is calculated mathematically by 
+          checking the length of the answered data array against the total expected inputs.
+        </p>
+        <a class="page-link" href="validation_ST4.html#val-profile" target="_blank">See Profile Validation ↗</a>
+      </section>
+
+      <!-- 3. Sitemap SVG Design -->
+      <section id="sitemap-architecture">
+        <h2>3. Sitemap Architecture (SVG)</h2>
+        <h3>SVG Structure</h3>
+        <p>
+          Per <strong>Requirement 4.9</strong>, I hand-coded a <strong>Scalable Vector Graphics (SVG)</strong> 
+          sitemap. The site hierarchy is depicted using <span class="tag">&lt;rect&gt;</span> for nodes 
+          and <span class="tag">&lt;line&gt;</span> elements for the branches. Using the 
+          <span class="tag">viewBox</span> attribute ensures the diagram is fully responsive.
+        </p>
+        <h3>Interactivity</h3>
+        <p>
+          I utilized the <span class="tag">&lt;a&gt;</span> element within the SVG to allow each node 
+          to act as a clickable link. I also applied CSS transitions on the <span class="tag">fill</span> 
+          and <span class="tag">stroke</span> properties to provide immediate visual feedback 
+          when the user hovers over a specific page in the hierarchy.
+        </p>
+        <a class="page-link" href="validation_ST4.html#val-sitemap" target="_blank">See Sitemap Validation ↗</a>
+      </section>
+
+      <!-- 4. Water Scarcity & Conservation -->
+      <section id="content-page">
+        <h2>4. Water Scarcity &amp; Conservation Page</h2>
+        <h3>Overview &amp; Structure</h3>
+        <p>
+          My content page focuses on the critical issues of water stress and individual conservation. 
+          It is structured into four sections using semantic <span class="tag">&lt;section&gt;</span> tags 
+          with unique IDs to facilitate the <strong>Sticky Sidebar Navigation</strong>.
+        </p>
+        <h3>Design Rationale</h3>
+        <p>
+          To satisfy <strong>Requirement 4.10</strong>, I included four high-quality images with 
+          descriptive <span class="tag">alt</span> text. I used <strong>CSS Flexbox</strong> to 
+          ensure that the content remains readable across mobile and desktop devices. A persistent 
+          "Go to Top" button was added using fixed positioning for improved user experience.
+        </p>
+        <a class="page-link" href="validation_ST4.html#val-content" target="_blank">See Content Validation ↗</a>
+      </section>
+
+      <!-- 5. Challenges & Lessons -->
+      <section id="challenges">
+        <h2>5. Challenges &amp; Lessons Learned</h2>
+        <p>
+          The most significant challenge was ensuring the <strong>SVG Sitemap's responsiveness</strong>. 
+          Initially, the lines connecting the pages would break on smaller screens. I learned to 
+          remove fixed pixel dimensions and instead use a percentage-based <span class="tag">width</span> 
+          combined with a responsive <span class="tag">viewBox</span>, which allowed the diagram to 
+          scale while maintaining its internal coordinate system.
+        </p>
+        <p>
+          Another challenge was handling the <strong>JavaScript Prompt workflow</strong>. If a user 
+          clicked "Cancel" on a prompt, the variable would return a <span class="tag">null</span> value. 
+          I implemented conditional "Sanitization" logic to ensure that if a step was skipped, 
+          the profile output would display "Not Provided" rather than the literal word "null".
+        </p>
+      </section>
+
+      <!-- 6. Accessibility -->
+      <section id="accessibility">
+        <h2>6. Accessibility Considerations</h2>
+        <ul>
+          <li><strong>Keyboard Focus:</strong> I ensured that every node in the SVG sitemap is 
+          focusable using the Tab key by adding <span class="tag">tabindex="0"</span>.</li>
+          <li><strong>ARIA Integration:</strong> Used <span class="tag">aria-valuenow</span> and 
+          <span class="tag">aria-valuemin</span> on the profile progress bar to assist screen 
+          reader users in understanding their completion status.</li>
+          <li><strong>Color Contrast:</strong> All text and button backgrounds meet a minimum 
+          ratio of 4.5:1, ensuring readability for users with low vision.</li>
+        </ul>
+      </section>
+
+      <!-- 7. JANET Compliance -->
+      <section id="janet">
+        <h2>7. JANET Compliance</h2>
+        <p>
+          I have strictly followed the JANET regulations for web publishing. All content is strictly 
+          educational and focused on SDG 6. I have avoided any unauthorized external scripts or 
+          advertising. All profile data collected from the user is stored locally in the 
+          <strong>browser's session memory</strong> only and is never transmitted to an 
+          external server, ensuring user privacy and data integrity.
+        </p>
+      </section>
+
+      <!-- 8. Group Meetings Log -->
+      <section id="meetings">
+        <h2>8. Group Meetings &amp; Contribution Log</h2>
+        <table class="meetings-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date</th>
+              <th>Format</th>
+              <th>Objective</th>
+              <th>My Individual Contribution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td>Mar 09</td><td>F2F</td><td>Role Assignment</td><td>Accepted Student 4 role; proposed User Profile logic.</td></tr>
+            <tr><td>2</td><td>Mar 13</td><td>Online</td><td>Design Sync</td><td>Helped define the navigation depth for the Sitemap.</td></tr>
+            <tr><td>3</td><td>Mar 20</td><td>Online</td><td>Template Test</td><td>Verified my pages worked with ST1's Global CSS.</td></tr>
+            <tr><td>4</td><td>Mar 26</td><td>F2F</td><td>Integration</td><td>Coordinated link paths with the team's final file names.</td></tr>
+            <tr><td>5</td><td>Apr 01</td><td>Online</td><td>Validation</td><td>Resolved pathing issues in my hand-coded SVG code.</td></tr>
+            <tr><td>6</td><td>Apr 03</td><td>F2F</td><td>Final Audit</td><td>Verified the 'Go to Top' button behavior across the site.</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 9. References -->
+      <section id="references">
+        <h2>9. References</h2>
+        <ol>
+          <li>MDN Web Docs (2025) <em>SVG Tutorial and Reference</em>. Available at: developer.mozilla.org</li>
+          <li>W3 Schools (2025) <em>JS Window Prompt() Method</em>. Available at: w3schools.com</li>
+          <li>UN Water (2024) <em>Sustainable Development Goal 6: Progress Reports</em>. Available at: unwater.org</li>
+        </ol>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>AquaAction</h4>
+        <p>University of Westminster, 2025/26</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="home.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="sitemap.html">Sitemap</a>
+      </div>
+      <div class="footer-col">
+        <h4>This Page</h4>
+        <a href="pageEditor_ST4.html">Page Editor</a>
+        <a href="validation_ST4.html">Validation</a>
+      </div>
+      <div class="footer-col">
+        <h4>Student 4 Details</h4>
+        <p>Name: Sampanna Kunwar</p>
+        <p>Student ID: W2124050</p>
+        <p>Role: User Profile &amp; Sitemap</p>
+        <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" rel="noopener">Accessibility (WCAG 2.1)</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 AquaAction – University of Westminster</span>
+    </div>
+  </footer>
+
+  <a href="#top" class="go-top" aria-label="Go to top of page">↑ Top</a>
+
+</body>
+</html>

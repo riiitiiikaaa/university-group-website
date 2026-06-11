@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Feedback &amp; Programs – AquaAction | SDG 6: Clean Water &amp; Sanitation</title>
+  <!-- Global CSS (shared with all team members) -->
+  <link rel="stylesheet" href="style.css" />
+  
+  <style>
+
+    /* 1. Page intro banner */
+    .page-banner {
+      background: linear-gradient(135deg, #00374a 0%, #0077b6 60%, #e0f4fd 100%);
+      color: #ffffff;
+      padding: 3.5rem 1.5rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-banner::after {
+      content: '';
+      position: absolute;
+      bottom: -2px; left: 0;
+      width: 100%; height: 50px;
+      background: #f5f5f5;
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .page-banner h1 { color: #ffffff; margin-bottom: 0.6rem; 
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2); 
+    }
+    .page-banner p  { 
+      color: rgba(255,255,255,0.88); 
+      max-width: 580px; 
+      margin: 0 auto; 
+      font-size: 1.05rem; 
+    }
+
+    /* 2. Section wrapper for background alternation */
+    .section-light { 
+      background: #f5f5f5; 
+      padding: 3rem 0; 
+    }
+    .section-white  { 
+      background: #ffffff;         
+      padding: 3rem 0; 
+    }
+
+    /* 3. Scrollable programme card area */
+    .program-scroll {
+      max-height: 620px;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+      scrollbar-width: thin;
+      scrollbar-color: #0077b6 #f5f5f5;
+    }
+
+    /* 4. Programme card grid inside scroll area */
+    .program-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1.25rem;
+      padding-bottom: 0.5rem;
+    }
+
+    /* 5. Individual programme card */
+    .prog-card {
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .prog-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,55,74,0.16);
+    }
+    .prog-card-icon {
+      height: 130px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.2rem;
+      background: linear-gradient(135deg, #e0f4fa, #caf0f8);
+    }
+    .prog-card-body { padding: 1.1rem; flex: 1; display: flex; flex-direction: column; gap: 0.4rem; }
+    .prog-card-body h4 { font-size: 0.98rem; color: #00374a; margin: 0; }
+    .prog-card-body p  { font-size: 0.84rem; margin: 0; flex: 1; }
+
+    /* 6. Filter / sort bar */
+    .filter-bar {
+      display: flex; align-items: center; gap: 1rem;
+      margin-bottom: 1.25rem; flex-wrap: wrap;
+    }
+    .filter-bar label { 
+      font-size: 0.84rem; 
+      font-weight: 600; 
+      color: #555; }
+    .filter-select {
+      background: #ffffff;
+      color: #333;
+      border: 1px solid #cce3f0;
+      border-radius: 6px;
+      padding: 0.45rem 0.9rem;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.22s;
+    }
+    .filter-select:hover, .filter-select:focus { 
+      border-color: #0077b6; 
+    }
+
+    /* Card tag badge */
+    .prog-tag {
+      display: inline-block;
+      padding: 0.18rem 0.65rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.25rem;
+    }
+    .tag-blue  { background: #dbeafe; color: #1e40af; }
+    .tag-teal  { background: #ccfbf1; color: #0f766e; }
+    .tag-green { background: #dcfce7; color: #166534; }
+
+    /* Hover effect on programme card buttons */
+    .prog-card .btn-primary:hover { 
+      background: #00374a; 
+    }
+
+    /* 7. Rating hero block */
+    .rating-hero {
+      display: flex; align-items: center; gap: 2.5rem;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 2rem 2.5rem;
+      margin-bottom: 1.75rem;
+      flex-wrap: wrap;
+    }
+    .rating-big {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 4.5rem;
+      font-weight: 700;
+      color: #0077b6;
+      line-height: 1;
+    }
+    .rating-stars { 
+      font-size: 1.4rem; 
+      color: #f59e0b; 
+      letter-spacing: 0.08em; 
+    }
+    .rating-label { 
+      font-size: 1rem; 
+      font-weight: 600; 
+      color: #00374a; 
+    }
+    .rating-count { 
+      font-size: 0.82rem; 
+      color: #555; 
+      margin-top: 0.2rem; }
+
+    /* 8. Review cards grid */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.2rem;
+    }
+    .review-card {
+      background: #ffffff;
+      border: 1px solid #d4eaf7;
+      border-radius: 12px;
+      padding: 1.3rem;
+      transition: border-color 0.25s, box-shadow 0.25s;
+    }
+    .review-card:hover {
+      border-color: #00b4d8;
+      box-shadow: 0 4px 16px rgba(0,119,182,0.1);
+    }
+    .review-header { display: flex; 
+      justify-content: space-between; 
+      align-items: flex-start; 
+      margin-bottom: 0.75rem; 
+    }
+    .review-score {
+      background: #0077b6;
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+    }
+    .review-meta { 
+      font-size: 0.78rem; 
+      color: #6b7280; 
+      margin-top: 0.75rem; 
+    }
+    .see-more { 
+      font-size: 0.8rem; 
+      color: #00b4d8; 
+      font-weight: 600; 
+    }
+    .see-more:hover { 
+      color: #0077b6; 
+    }
+
+    /* 9. Feedback form section */
+    .form-wrap {
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 2.5rem;
+    }
+    fieldset {
+      border: 1.5px solid #cce3f0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    legend {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #0077b6;
+      padding: 0 0.65rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    .form-row { 
+      display: grid; 
+      grid-template-columns: 1fr 1fr; 
+      gap: 1rem; 
+    }
+    .form-group { 
+      display: flex; 
+      flex-direction: column; 
+      gap: 0.35rem; 
+      margin-bottom: 1rem; 
+    }
+    .form-group label { 
+      font-size: 0.83rem; 
+      font-weight: 600; 
+      color: #374151; 
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      background: #f1f5f9;
+      border: 1.5px solid #cce3f0;
+      border-radius: 6px;
+      color: #1f2937;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.9rem;
+      padding: 0.6rem 0.9rem;
+      outline: none;
+      transition: border-color 0.22s, box-shadow 0.22s;
+      width: 100%;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: #0077b6;
+      box-shadow: 0 0 0 3px rgba(0,119,182,0.12);
+      background: #ffffff;
+    }
+    .form-group textarea { 
+      resize: vertical; min-height: 100px; 
+    }
+
+    /* 10. Live character counter */
+    .char-counter { 
+      font-size: 0.75rem; 
+      color: #6b7280; 
+      text-align: right; 
+    }
+
+    /* 11. Error messages */
+    .form-error { 
+      font-size: 0.78rem; 
+      color: #dc2626; 
+      display: none; 
+      margin-top: 0.2rem; 
+    }
+    .form-error.visible { 
+      display: block; 
+    }
+    .input-error { 
+      border-color: #dc2626 !important; 
+    }
+
+    /* 12. Success message */
+    .form-success {
+      display: none;
+      background: #f0fdf4;
+      border: 1.5px solid #86efac;
+      border-radius: 12px;
+      padding: 1.75rem;
+      text-align: center;
+      color: #166534;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.15rem;
+      margin-top: 1.5rem;
+    }
+    .form-success.visible { 
+      display: block; 
+    }
+
+    /* 13. Form action buttons row */
+    .form-actions { 
+      display: flex; 
+      justify-content: flex-end; 
+      gap: 1rem; 
+      flex-wrap: wrap; 
+    }
+
+    @media (max-width: 600px) {
+      .form-row { 
+        grid-template-columns: 1fr; 
+      }
+      .rating-hero { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 1rem; 
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HEADER & NAV (DO NOT MODIFY) ═══ -->
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="site-brand" aria-label="AquaAction home">
+        <img src="images/logo.jpg" alt="AquaAction logo – water droplet icon" />
+        <div class="site-brand-text">
+          <span class="site-title">AquaAction</span>
+          <span class="site-sdg-badge">SDG 6 · Clean Water &amp; Sanitation</span>
+        </div>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="ais.html">Impact Simulator</a></li>
+          <li><a href="feedback.html" class="active" aria-current="page">Feedback</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="profile.html">User Profile</a></li>
+          <li><a href="sitemap.html">Sitemap</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!-- ═══ END HEADER ═══ -->
+
+
+  <!-- MAIN CONTENT -->
+  <main>
+
+    <!-- Page Banner -->
+    <section class="page-banner" aria-labelledby="feedback-page-title">
+      <h1 id="feedback-page-title">Programs &amp; Feedback</h1>
+      <p>Discover water action initiatives near you, read what participants say, and share your own experience.</p>
+    </section>
+
+
+    <!-- ══ SECTION 1: PROGRAMME DIRECTORY ══ -->
+    <section class="section-light" aria-labelledby="programs-heading">
+      <div class="container">
+        <div class="section-title">
+          <h2 id="programs-heading">Water Action Programs</h2>
+          <div class="divider" aria-hidden="true"></div>
+          <p>Explore volunteering opportunities, campaigns, and student initiatives related to SDG 6.</p>
+        </div>
+
+        <!-- Sort / filter dropdown (visual only) -->
+        <div class="filter-bar">
+          <label for="sortPrograms">Sort by:</label>
+          <select id="sortPrograms" class="filter-select" aria-label="Sort programmes by">
+            <option>Most Popular</option>
+            <option>Student-Friendly</option>
+            <option>Nearest</option>
+            <option>Recently Added</option>
+          </select>
+        </div>
+
+        <!-- Scrollable card list -->
+        <div class="program-scroll" role="region" aria-label="Water action programmes list">
+          <div class="program-grid">
+
+            <article class="prog-card">
+              <div class="prog-card-icon" role="img" aria-label="Water droplet icon">💧</div>
+              <div class="prog-card-body">
+                <span class="prog-tag tag-blue">Community</span>
+                <h3>Clean River Drive</h3>
+                <p>Join local volunteers to remove plastic and debris from urban riverbanks, restoring habitats and improving water quality.</p>
+                <a href="#" class="btn btn-primary" style="margin-top:auto;" aria-label="Learn more about Clean River Drive">Learn More</a>
+              </div>
+            </article>
+
+            <article class="prog-card">
+              <div class="prog-card-icon" role="img" aria-label="Water tap icon">🚰</div>
+              <div class="prog-card-body">
+                <span class="prog-tag tag-teal">Student-Friendly</span>
+                <h4>Campus Tap-Water Campaign</h4>
+                <p>Advocate for free water refill stations across your university campus to cut single-use plastic bottle waste.</p>
+                <a href="#" class="btn btn-primary" style="margin-top:auto;" aria-label="Get involved with Campus Tap-Water Campaign">Get Involved</a>
+              </div>
+            </article>
+
+            <article class="prog-card">
+              <div class="prog-card-icon" role="img" aria-label="Rain cloud icon">🌧️</div>
+              <div class="prog-card-body">
+                <span class="prog-tag tag-green">Sustainability</span>
+                <h4>Rainwater Harvesting Workshops</h4>
+                <p>Free community workshops showing households how to collect and safely reuse rainwater for gardens and non-drinking uses.</p>
+                <a href="#" class="btn btn-primary" style="margin-top:auto;" aria-label="Join Rainwater Harvesting Workshop">Join Now</a>
+              </div>
+            </article>
+
+            <article class="prog-card">
+              <div class="prog-card-icon" role="img" aria-label="Toilet icon">🚻</div>
+              <div class="prog-card-body">
+                <span class="prog-tag tag-blue">Advocacy</span>
+                <h4>Sanitation for Schools</h4>
+                <p>Campaign for clean toilet facilities and handwashing stations in under-resourced schools in your region.</p>
+                <a href="#" class="btn btn-primary" style="margin-top:auto;" aria-label="Learn more about Sanitation for Schools">Learn More</a>
+              </div>
+            </article>
+
+            <article class="prog-card">
+              <div class="prog-card-icon" role="img" aria-label="Globe icon">🌍</div>
+              <div class="prog-card-body">
+                <span class="prog-tag tag-teal">Online</span>
+                <h4>Water Literacy eCourse</h4>
+                <p>A free self-paced online course covering the global water crisis, sanitation science, and everyday conservation techniques.</p>
+                <a href="#" class="btn btn-primary" style="margin-top:auto;" aria-label="Enrol in Water Literacy eCourse">Enrol Free</a>
+              </div>
+            </article>
+
+            <article class="prog-card">
+              <div class="prog-card-icon" role="img" aria-label="Seedling icon">🌱</div>
+              <div class="prog-card-body">
+                <span class="prog-tag tag-green">Conservation</span>
+                <h4>Wetlands Restoration Project</h4>
+                <p>Volunteer alongside ecologists to restore local wetland areas, which act as natural water filters and flood barriers.</p>
+                <a href="#" class="btn btn-primary" style="margin-top:auto;" aria-label="Apply for Wetlands Restoration Project">Apply Now</a>
+              </div>
+            </article>
+
+          </div><!-- end program-grid -->
+        </div><!-- end program-scroll -->
+      </div>
+    </section>
+
+
+    <!-- ══ SECTION 2: RATINGS & REVIEWS ══ -->
+    <section class="section-white" aria-labelledby="reviews-heading">
+      <div class="container">
+        <div class="section-title">
+          <h2 id="reviews-heading">Ratings &amp; Reviews</h2>
+          <div class="divider" aria-hidden="true"></div>
+          <p>What participants say about our water action programmes.</p>
+        </div>
+
+        <!-- Overall rating summary -->
+        <div class="rating-hero" role="region" aria-label="Overall programme rating">
+          <div>
+           <div class="rating-big" role="img" aria-label="Rating 9.1 out of 10">9.1<span style="font-size:1.8rem; color:var(--neutral-mid)">/10</span></div>
+            <div class="rating-stars" aria-hidden="true">★★★★★</div>
+            <div class="rating-label">Excellent</div>
+            <div class="rating-count">Based on 187 verified reviews</div>
+          </div>
+          <div>
+            <p style="max-width:380px; font-size:0.95rem;">
+              Participants consistently rate AquaAction programmes as impactful, well-organised, and genuinely motivating. Many report lasting changes in their water habits.
+            </p>
+            <a href="#feedback-form" class="btn btn-outline">Share Your Review ↓</a>
+          </div>
+        </div>
+
+        <!-- Individual reviews -->
+        <div class="reviews-grid">
+
+          <article class="review-card">
+            <div class="review-header">
+              <h3 style="font-size:0.95rem; color:var(--primary-dark);">Completely changed how I use water</h3>
+              <span class="review-score" role="img" aria-label="Score 10 out of 10">10/10</span>
+            </div>
+            <p style="font-size:0.86rem;">The Clean River Drive was an incredible experience. Seeing the amount of plastic we removed in just one morning was shocking — and motivating. I've since...</p>
+            <a href="#" class="see-more">See more</a>
+            <div class="review-meta">— Priya S. · February 2026</div>
+          </article>
+
+          <article class="review-card">
+            <div class="review-header">
+              <h4 style="font-size:0.95rem; color:var(--primary-dark);">Great for students with no experience</h4>
+              <span class="review-score" role="img" aria-label="Score 9 out of 10">9/10</span>
+            </div>
+            <p style="font-size:0.86rem;">I was nervous joining my first environmental campaign but the Campus Tap-Water team made everyone feel welcome. We got two new refill stations installed...</p>
+            <a href="#" class="see-more">See more</a>
+            <div class="review-meta">— Marcus T. · January 2026</div>
+          </article>
+
+          <article class="review-card">
+            <div class="review-header">
+              <h4 style="font-size:0.95rem; color:var(--primary-dark);">Practical and eye-opening</h4>
+              <span class="review-score" role="img" aria-label="Score 8 out of 10">8/10</span>
+            </div>
+            <p style="font-size:0.86rem;">The Rainwater Harvesting Workshop was hands-on and practical. Our family now collects over 200 litres a month. The instructor was knowledgeable and...</p>
+            <a href="#" class="see-more">See more</a>
+            <div class="review-meta">— Aisha K. · March 2026</div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══ SECTION 3: FEEDBACK FORM ══ -->
+    <section id="feedback-form" class="section-light" aria-labelledby="form-heading">
+      <div class="container">
+        <div class="section-title">
+          <h2 id="form-heading">Submit Your Feedback</h2>
+          <div class="divider" aria-hidden="true"></div>
+          <p>Your voice helps us improve and expand AquaAction programmes.</p>
+        </div>
+
+        <div class="form-wrap">
+          <form id="feedbackForm" novalidate>
+
+            <!-- Fieldset 1: Personal Details -->
+            <fieldset>
+              <legend>Personal Details</legend>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="fullName">Full Name *</label>
+                  <input type="text" id="fullName" name="fullName" placeholder="Your full name" autocomplete="name" />
+                  <span class="form-error" id="fullName-error">Please enter your full name.</span>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email Address *</label>
+                  <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" />
+                  <span class="form-error" id="email-error">Please enter a valid email address.</span>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="tel">Telephone Number</label>
+                  <input type="tel" id="tel" name="tel" placeholder="+44 7700 000000" autocomplete="tel" />
+                </div>
+                <div class="form-group">
+                  <label for="feedbackDate">Date of Experience</label>
+                  <input type="date" id="feedbackDate" name="feedbackDate" />
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" rows="2" placeholder="Your address (optional)" autocomplete="street-address"></textarea>
+              </div>
+            </fieldset>
+
+            <!-- Fieldset 2: Feedback Details -->
+            <fieldset>
+              <legend>Feedback Details</legend>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="program">Programme Attended *</label>
+                  <!-- Select dropdown (popup list) -->
+                  <select id="program" name="program">
+                    <option value="">— Select a programme —</option>
+                    <option>Clean River Drive</option>
+                    <option>Campus Tap-Water Campaign</option>
+                    <option>Rainwater Harvesting Workshop</option>
+                    <option>Sanitation for Schools</option>
+                    <option>Water Literacy eCourse</option>
+                    <option>Wetlands Restoration Project</option>
+                  </select>
+                  <span class="form-error" id="program-error">Please select the programme you attended.</span>
+                </div>
+                <div class="form-group">
+                  <label for="visitDateTime">Date &amp; Time of Visit</label>
+                  <input type="datetime-local" id="visitDateTime" name="visitDateTime" />
+                </div>
+              </div>
+
+              <!-- Datalist (searchable suggestions) -->
+              <div class="form-group">
+                <label for="waterInterest">Water Topic of Interest</label>
+                <input type="text" id="waterInterest" name="waterInterest" list="water-topics" placeholder="e.g. Water Conservation" />
+                  <datalist id="water-topics">
+                   <option value="Water Conservation"></option>
+                  <option value="River Pollution"></option>
+                  <option value="Sanitation & Hygiene"></option>
+                    <option value="Rainwater Harvesting"></option>
+                  <option value="Groundwater Management"></option>
+                  <option value="Water Policy & Advocacy"></option>
+                <option value="Water Technology"></option>
+                </datalist>
+              </div>
+
+              <!-- Message textarea with live character counter -->
+              <div class="form-group">
+                <label for="message">Your Comment / Message * <span style="font-weight:400;">(max 500 characters)</span></label>
+                <textarea id="message" name="message" maxlength="500" rows="5" placeholder="Share your experience or suggestions..."></textarea>
+                <!-- Live character counter updated by JavaScript -->
+                <span class="char-counter" id="charCount" aria-live="polite">500 characters remaining</span>
+                <span class="form-error" id="message-error">Please write a message of at least 20 characters.</span>
+              </div>
+
+              <!-- Multi-select scrolling list -->
+              <div class="form-group">
+                <label for="interests">Topics You Are Interested In <span style="font-weight:400;">(hold Ctrl / Cmd to select multiple)</span></label>
+                <select id="interests" name="interests" multiple size="5">
+                  <option>Water Conservation</option>
+                  <option>River &amp; Ocean Pollution</option>
+                  <option>Sanitation &amp; Hygiene</option>
+                  <option>Rainwater Harvesting</option>
+                  <option>Water Technology</option>
+                  <option>Policy &amp; Advocacy</option>
+                </select>
+              </div>
+
+            </fieldset>
+
+            <!-- Form action buttons -->
+            <div class="form-actions">
+              <button type="button" id="resetBtn" class="btn btn-outline">Clear Form</button>
+              <button type="submit" id="submitBtn" class="btn btn-primary">Submit Feedback →</button>
+            </div>
+
+          </form>
+
+          <!-- Success confirmation shown by JavaScript on valid submit -->
+          <div class="form-success" id="formSuccess" role="alert" aria-live="assertive">
+            ✅ Thank you for your feedback! Your response helps drive clean water action.
+          </div>
+
+        </div><!-- end form-wrap -->
+      </div>
+    </section>
+
+  </main>
+  <!-- ═══ END MAIN ═══ -->
+
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>AquaAction</h3>
+        <p>A student project for SDG 6: Clean Water &amp; Sanitation.</p>
+        <p>University of Westminster, 2025/26</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="home.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="ais.html">Impact Simulator</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="team.html">Team</a>
+        <a href="profile.html">User Profile</a>
+        <a href="sitemap.html">Sitemap</a>
+      </div>
+      <div class="footer-col">
+        <h4>This Page</h4>
+        <!-- Student 3 updates these links -->
+        <a href="pageEditor_ST3.html">Page Editor</a>
+        <a href="validation_ST3.html">Validation</a>
+      </div>
+      <div class="footer-col">
+        <h4>Student 3 Details</h4>
+        <p>Name: Ritika Shrestha</p>
+        <p>Student ID: w2124058</p>
+        <p>Role: Feedback &amp; Team Pages</p>
+        <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" rel="noopener">
+          Accessibility (WCAG 2.1)
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 AquaAction – University of Westminster</span>
+      <span>SDG 6: Clean Water &amp; Sanitation</span>
+    </div>
+  </footer>
+  <!-- ═══ END FOOTER ═══ -->
+
+
+  <!-- ═══ FEEDBACK PAGE JAVASCRIPT ═══ -->
+  <script>
+
+    /**
+     * 1. LIVE CHARACTER COUNTER
+     * Updates remaining count as user types in the message textarea.
+     * Turns red when fewer than 50 characters remain.
+     */
+    var messageField = document.getElementById('message');
+    var charCount    = document.getElementById('charCount');
+
+    messageField.addEventListener('input', function () {
+      var remaining = 500 - this.value.length;
+      charCount.textContent = remaining + ' characters remaining';
+      charCount.style.color = remaining < 50 ? '#dc2626' : '';
+    });
+
+    /**
+     * 2. FORM VALIDATION – JavaScript-enhanced
+     * Checks fields on submit and shows error messages near each field.
+     * HTML attributes (required, type="email") provide baseline support,
+     * but JS adds custom messages and visual highlighting.
+     */
+    function showError(fieldId, msg) {
+      var field = document.getElementById(fieldId);
+      var err   = document.getElementById(fieldId + '-error');
+      if (field) field.classList.add('input-error');
+      if (err)   { err.textContent = msg; err.classList.add('visible'); }
+    }
+
+    function clearError(fieldId) {
+      var field = document.getElementById(fieldId);
+      var err   = document.getElementById(fieldId + '-error');
+      if (field) field.classList.remove('input-error');
+      if (err)   err.classList.remove('visible');
+    }
+
+    // Clear errors as the user corrects each field
+    ['fullName', 'email', 'program', 'message'].forEach(function (id) {
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('input', function () { clearError(id); });
+    });
+
+    document.getElementById('feedbackForm').addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent actual submission (client-side demo only)
+
+      var valid = true;
+
+      // Validate Full Name
+      var nameVal = document.getElementById('fullName').value.trim();
+      if (!nameVal) {
+        showError('fullName', 'Please enter your full name.'); valid = false;
+      } else { clearError('fullName'); }
+
+      // Validate Email with regex
+      var emailVal   = document.getElementById('email').value.trim();
+      var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailVal || !emailRegex.test(emailVal)) {
+        showError('email', 'Please enter a valid email address (e.g. name@example.com).'); valid = false;
+      } else { clearError('email'); }
+
+      // Validate Programme selection
+      var programVal = document.getElementById('program').value;
+      if (!programVal) {
+        showError('program', 'Please select the programme you attended.'); valid = false;
+      } else { clearError('program'); }
+
+      // Validate Message length
+      var msgVal = document.getElementById('message').value.trim();
+      if (msgVal.length < 20) {
+        showError('message', 'Your message must be at least 20 characters long.'); valid = false;
+      } else { clearError('message'); }
+
+      /**
+       * 3. SUBMISSION CONFIRMATION
+       * On successful validation, hide the form and show a
+       * thank-you confirmation message. No data is sent to a server.
+       */
+      if (valid) {
+        document.getElementById('feedbackForm').style.display = 'none';
+        document.getElementById('formSuccess').classList.add('visible');
+        // Scroll to success message
+        document.getElementById('formSuccess').scrollIntoView({ behavior: 'smooth' });
+      }
+    });
+
+    /**
+     * 4. RESET BUTTON
+     * Clears all form fields and removes any visible errors.
+     */
+    document.getElementById('resetBtn').addEventListener('click', function () {
+      document.getElementById('feedbackForm').reset();
+      charCount.textContent = '500 characters remaining';
+      charCount.style.color = '';
+      ['fullName', 'email', 'program', 'message'].forEach(function (id) { clearError(id); });
+    });
+
+  </script>
+
+</body>
+</html>

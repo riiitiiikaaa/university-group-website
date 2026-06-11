@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page Editor — Student 2</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* VARIABLES */
+:root {
+  --primary: #0077b6;
+  --primary-dark: #023e8a;
+  --secondary: #00b4d8;
+  --white: #ffffff;
+  --neutral-light: #e9ecef;
+  --neutral-mid: #555;
+  --neutral-dark: #222;
+  --radius: 12px;
+  --card-shadow: 0 6px 18px rgba(0,0,0,0.08);
+}
+
+
+body { 
+  background: #f4f7f9; 
+  font-family: 'DM Sans', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+
+.pe-header {
+  background: var(--primary);
+  color: var(--white);
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.pe-header h1 { margin: 0; }
+.pe-header p { margin: 0.5rem 0 0; }
+
+
+.pe-wrap {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+  align-items: start;
+}
+
+
+.pe-toc {
+  background: var(--white);
+  padding: 1.5rem 1.5rem 1.5rem 1.4rem;
+  border-radius: 18px;
+  box-shadow: var(--card-shadow);
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+}
+
+.pe-toc a {
+  text-decoration: none;
+  color: var(--primary);
+  font-size: 0.9rem;
+}
+
+.pe-content section {
+  background: var(--white);
+  padding: 2rem;
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+  margin-bottom: 2rem;
+}
+
+.pe-content h2 {
+  color: var(--primary);
+  border-bottom: 2px solid var(--neutral-light);
+  padding-bottom: 0.5rem;
+}
+
+.tag {
+  background: var(--neutral-light);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+}
+
+
+.meeting-table-wrap {
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(76,184,224,0.2);
+  background: rgba(13,33,55,0.6);
+  backdrop-filter: blur(8px);
+  margin-bottom: 3rem;
+}
+
+
+.meeting-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  min-width: 860px;
+}
+
+
+.meeting-table thead tr {
+  background: rgba(14,77,122,0.6);
+}
+
+.meeting-table thead th {
+  text-align: left;
+  padding: 0.9rem 1.1rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #000b0e;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(76,184,224,0.3);
+}
+
+
+.meeting-table tbody tr {
+  border-bottom: 1px solid rgba(76,184,224,0.1);
+  transition: background 0.2s ease;
+  color: #000b0e;
+}
+
+.meeting-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.meeting-table tbody tr:hover {
+  background: rgba(76,184,224,0.08);
+}
+
+
+.meeting-table td {
+  padding: 1rem 1.1rem;
+  color: rgba(240,248,255,0.85);
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+
+.meet-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0,212,255,0.12);
+  border: 1px solid rgba(0,212,255,0.35);
+  color: #00090a;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.ed-section {
+  background: rgba(0,212,255,0.08); 
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 2rem 0;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.ed-section:hover {
+  transform: translateY(-2px);
+  background: rgba(0,212,255,0.12);
+}
+
+
+.ed-section h2 {
+  color: #006f91; 
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 0.5rem;
+}
+
+.ed-section h3 {
+  color: #00a4c6; 
+  font-family: 'DM Sans', sans-serif;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+
+.ed-section .tech-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.ed-section .tech-tags .tag {
+  background: rgba(0,212,255,0.15);
+  color: #006f91;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 100px;
+}
+
+
+.ed-section .callout {
+  background: rgba(6,214,160,0.08);
+  border-left: 4px solid #06d6a0;
+  padding: 1rem 1.2rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #003f35;
+  border-radius: 8px;
+}
+
+
+.ed-section .page-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.ed-section .page-card {
+  background: rgba(0,212,255,0.10);
+  border-radius: 12px;
+  padding: 1rem;
+  color: #003f35;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ed-section .page-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0,212,255,0.2);
+}
+
+.ed-section .pc-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+
+.fmt-badge {
+  display: inline-block;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: 100px;
+}
+
+.fmt-badge.online {
+  background: rgba(76,184,224,0.15);
+  border: 1px solid rgba(76,184,224,0.4);
+  color: #4cb8e0;
+}
+
+.fmt-badge.inperson {
+  background: rgba(6,214,160,0.12);
+  border: 1px solid rgba(6,214,160,0.35);
+  color: #06d6a0;
+}
+
+
+.attend-yes {
+  color: #06d6a0;
+  font-weight: 600;
+  font-size: 0.82rem;
+}
+
+.contribution-cell {
+  color: #f0f8ff;
+  font-weight: 400;
+}
+
+footer {
+  background: #1f3547;
+  color: rgba(255,255,255,0.75);
+  padding: 3rem 0 2rem;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.footer-col h4 {
+  color: #7fd8ff;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.footer-col a,
+.footer-col p {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+}
+
+.footer-col a:hover {
+  color: white;
+}
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 2rem auto 0;
+  padding: 1rem 1.5rem 0;
+  border-top: 1px solid rgba(255,255,255,0.15);
+  text-align: center;
+  font-size: 0.8rem;
+}
+</style>
+</head>
+
+<body>
+
+<div class="pe-header">
+  <h1>Student 2 — Page Editor</h1>
+  <p>Team AquaAction | Role: Splash Screen & Simulator</p>
+</div>
+<main>
+
+<div class="pe-wrap">
+
+
+<div class="pe-toc">
+  <h2>Contents</h2>
+  <ol>
+    <li><a href="#home">Home</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#content">Content</a></li>
+    <li><a href="#challenges">Challenges</a></li>
+    <li><a href="#compliance">Compliance</a></li>
+    <li><a href="#meetings">Meetings</a></li>
+    <li><a href="#refs">References</a></li>
+  </ol>
+</div>
+
+
+<div class="pe-content">
+
+<section id="home">
+<h2>Home Page</h2>
+
+<h3>Technical Description</h3>
+<p>Used <span class="tag">&lt;header&gt;</span>, <span class="tag">&lt;nav&gt;</span>, and <span class="tag">&lt;section&gt;</span> for structure. CSS Flexbox ensures responsive layout.</p>
+
+<h3>Accessibility</h3>
+<p>Alt text, semantic tags, and keyboard navigation implemented.</p>
+
+<a href="home.html" class="page-link">View Page</a>
+</section>
+
+<section id="gallery">
+<h2>Gallery Page</h2>
+
+<h3>Technical Description</h3>
+<p>Grid layout with <span class="tag">CSS Grid</span> for responsive images.</p>
+
+<h3>Accessibility</h3>
+<p>Images include alt text and proper contrast.</p>
+
+<a href="gallery.html" class="page-link">View Page</a>
+</section>
+
+<section id="content">
+<h2>Content Page</h2>
+
+<h3>Technical Description</h3>
+<p>Structured using headings and paragraphs for readability.</p>
+
+<h3>Accessibility</h3>
+<p>Clear heading hierarchy and readable text.</p>
+
+<a href="content_ST2.html" class="page-link">View Page</a>
+</section>
+
+<section id="challenges">
+<h2>Challenges and Lessons Learned</h2>
+<p>JavaScript logic in simulator was complex. Solved using modular functions.</p>
+</section>
+
+<section id="compliance">
+<h2>Compliance</h2>
+<p>Content follows JANET rules. No harmful or commercial content.</p>
+</section>
+
+    <p class="section-label"><strong>Meeting Log</strong></p>
+    <div class="meeting-table-wrap">
+      <table class="meeting-table" aria-label="Student 2 meeting log">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Meeting</th>
+            <th scope="col">Date &amp; Time</th>
+            <th scope="col">Format</th>
+            <th scope="col">Objective</th>
+            <th scope="col">Attended</th>
+            <th scope="col">My Individual Contribution</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <tr>
+            <td><span class="meet-num">1</span></td>
+            <td>Project Kick-off</td>
+            <td>Week 1<br>March 9, 10:00 AM</td>
+            <td><span class="fmt-badge inperson">Face to Face</span></td>
+            <td>Agree on the SDG topic, assign pages to each team member, and establish the shared design direction — colour palette, fonts, and layout.</td>
+            <td><span class="attend-yes">✓ Yes</span></td>
+            <td class="contribution-cell">Proposed the SDG 6 Clean Water &amp; Sanitation theme and suggested the deep-ocean colour palette. Volunteered to build the Splash Screen and Action Impact Simulator pages.</td>
+          </tr>
+
+          <tr>
+            <td><span class="meet-num">2</span></td>
+            <td>Design Review</td>
+            <td>Week 2<br>March 13, 2:00 PM</td>
+            <td><span class="fmt-badge online">Online</span></td>
+            <td>Review initial wireframes for all pages. Confirm the shared HTML template structure, global CSS variables, navigation links, and agreed file names.</td>
+            <td><span class="attend-yes">✓ Yes</span></td>
+            <td class="contribution-cell">Presented the Splash Screen wireframe showing the countdown timer layout, animated wave concept, and team member pill display. Confirmed <code>splash.html</code> and <code>simulator.html</code> as my page file names.</td>
+          </tr>
+
+          <tr>
+            <td><span class="meet-num">3</span></td>
+            <td>Development Check-in</td>
+            <td>Week 3<br>March 20, 12:00 PM</td>
+            <td><span class="fmt-badge online">Online</span></td>
+            <td>Share progress updates on each assigned page, identify blockers, and confirm all pages are consistent with the agreed global stylesheet.</td>
+            <td><span class="attend-yes">✓ Yes</span></td>
+            <td class="contribution-cell">Demonstrated the completed Splash Screen — 7-second countdown, CSS wave and ripple animations, and working Skip Intro button. Showed the early Simulator card grid and explained the three impact level thresholds: Low (1–7 pts), Medium (8–14 pts), High (15–22 pts).</td>
+          </tr>
+
+          <tr>
+            <td><span class="meet-num">4</span></td>
+            <td>Content &amp; Accessibility Review</td>
+            <td>Week 4<br>March 26, 11:00 AM</td>
+            <td><span class="fmt-badge inperson">Face to Face</span></td>
+            <td>Review all page content for originality and SDG relevance. Check accessibility compliance — alt text, ARIA attributes, keyboard navigation, and readable contrast.</td>
+            <td><span class="attend-yes">✓ Yes</span></td>
+            <td class="contribution-cell">Reviewed all six Simulator action card descriptions for SDG 6 relevance and originality. Added <code>aria-pressed</code>, <code>role="button"</code>, and keyboard event handlers to each card. Verified all image alt texts are descriptive. Confirmed feedback panel uses <code>aria-live="polite"</code>.</td>
+          </tr>
+
+          <tr>
+            <td><span class="meet-num">5</span></td>
+            <td>Validation &amp; Testing</td>
+            <td>Week 5<br>April 1, 4:00 PM</td>
+            <td><span class="fmt-badge online">Online</span></td>
+            <td>Run all pages through the W3C HTML and CSS validators. Fix any errors before final submission and confirm consistent appearance across browsers.</td>
+            <td><span class="attend-yes">✓ Yes</span></td>
+            <td class="contribution-cell">Validated <code>splash.html</code> and <code>simulator.html</code> using the W3C HTML Validator — zero errors on both. Validated embedded CSS for both pages using the W3C CSS Validator — passed. Documented all results in <code>validation.html</code>. Fixed a minor <code>aria-live</code> attribute placement found during testing.</td>
+          </tr>
+
+          <tr>
+            <td><span class="meet-num">6</span></td>
+            <td>Final Review &amp; Submission</td>
+            <td>Week 6<br>April 3, 12:00 AM</td>
+            <td><span class="fmt-badge inperson">Face to face</span></td>
+            <td>Final walkthrough of the complete website. Confirm all navigation links are correct, footer page editor credits are in place, and all files are ready for submission.</td>
+            <td><span class="attend-yes">✓ Yes</span></td>
+            <td class="contribution-cell">Finalised and submitted <code>pageeditor.html</code> and <code>validation.html</code>. Confirmed all navigation links point to correct file names. Verified the Simulator background image switching works across all three impact levels. Ensured footer Page Editor credit reads "Student 2" on all my assigned pages.</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    
+    <p class="section-label">Pages Produced by Student 2</p>
+    <div class="page-cards">
+
+      <div class="page-card">
+        <div class="pc-icon">💦</div>
+        <h3>Splash Screen</h3>
+        <p class="pc-file">splash.html</p>
+
+        <a href="Splashscreen.html">View Splashscreen</a></p>
+        <p>7-second animated intro with CSS wave animations, countdown timer, CSS loader bar, and a Skip Intro button. Auto-redirects via meta refresh.</p>
+      </div>
+
+      <div class="page-card">
+        <div class="pc-icon">⚡</div>
+        <h3>Action Impact Simulator</h3>
+        <p><a href="ais.html">View Action impact Simulator</a></p>
+        <p>Six interactive SDG 6 action cards with dynamic scoring, three impact levels, and JavaScript-controlled background image changes per level.</p>
+      </div>
+
+      <div class="page-card">
+        <div class="pc-icon">✏️</div>
+        <h3>Page Editor</h3>
+        <p class="pc-file"></p>
+        <p><a href="editor_student2.html">View Pageeditor</a></p>
+        <p>This page — full meeting log with dates, formats, objectives, attendance, and individual contributions across all six project meetings.</p>
+      </div>
+
+      <div class="page-card">
+        <div class="pc-icon">✅</div>
+        <h3>Validation</h3>
+        <p class="pc-file"></p>
+        <p><a href="validation_student2.html">View Validation</a></p>
+        <p>W3C HTML and CSS validation results for all Student 2 pages, plus an eight-point accessibility and standards compliance checklist.</p>
+      </div>
+
+    </div>
+    </div>
+  </main>
+  
+
+ <footer class="val-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>AquaAction</h4>
+        <p>A student project for SDG 6: Clean Water &amp; Sanitation.</p>
+        <p>University of Westminster, 2025/26</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="home.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="ais.html">Impact Simulator</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="team.html">Team</a>
+        <a href="profile.html">User Profile</a>
+        <a href="sitemap.html">Sitemap</a>
+      </div>
+      <div class="footer-col">
+        <h4>This Page</h4>
+        <a href="pageeditor_ST2.html">Page Editor</a>
+        <a href="validation_ST2.html">Validation</a>
+      </div>
+      <div class="footer-col">
+        <h4>Student 1 Details</h4>
+        <p>Name:Sadiksha KC</p>
+        <p>Student ID:W2122051</p>
+        <p>Role:Splash screen & Simulator</p>
+        <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" rel="noopener">
+          Accessibility (WCAG 2.1)
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 AquaAction – University of Westminster</span>
+      <span>SDG 6: Clean Water &amp; Sanitation</span>
+    </div>
+  </footer>
+
+</body>
+</html>

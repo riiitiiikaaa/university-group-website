@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Validation – Student 2 | AquaAction</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body { background: #f4f7f9; }
+
+    .val-header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+    .val-header h1 { color: var(--white); margin-bottom: 0.4rem; }
+    .val-header p  { color: rgba(255,255,255,0.85); margin: 0; }
+
+    .val-wrap {
+      max-width: 900px;
+      margin: 2.5rem auto 4rem;
+      padding: 0 1.5rem;
+    }
+
+    
+    .val-toc {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      padding: 1.4rem 1.8rem;
+      margin-bottom: 2rem;
+    }
+    .val-toc h2 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--neutral-mid);
+      margin-bottom: 0.8rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+    }
+    .val-toc ol { padding-left: 1.2rem; margin: 0; }
+    .val-toc li { margin-bottom: 0.4rem; }
+    .val-toc a  { font-size: 0.9rem; color: var(--primary); text-decoration: none; }
+    .val-toc a:hover { color: var(--secondary); }
+
+    
+    .val-section {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      padding: 2rem 2.2rem;
+      margin-bottom: 2rem;
+      scroll-margin-top: 90px;
+    }
+
+    .val-section h2 {
+      font-size: 1.25rem;
+      color: var(--primary);
+      border-bottom: 2px solid var(--neutral-light);
+      padding-bottom: 0.6rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .val-section p, .val-section li {
+      font-size: 0.93rem;
+      color: var(--neutral-mid);
+    }
+
+    
+    .screenshot-box {
+      border: 2px dashed #b0c8d8;
+      border-radius: 8px;
+      background: var(--neutral-light);
+      padding: 3rem 1.5rem;
+      text-align: center;
+      margin: 1.2rem 0;
+      color: var(--neutral-mid);
+      font-size: 0.9rem;
+    }
+
+    .screenshot-box strong {
+      display: block;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+
+    
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+    .badge-pending  { background: #fff3cd; color: #856404; }
+    .badge-pass     { background: #d1e7dd; color: #0a5c36; }
+
+    .page-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.45rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin: 0.3rem 0.3rem 0 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .page-link:hover {
+      background: var(--primary-dark);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+  
+    .go-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(0,119,182,0.35);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .go-top:hover {
+      background: var(--primary-dark);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+    .content-img{
+      width:100%;
+      max-width:700px;
+      border: 2px solid #b0c8d8;
+      border-radius: 8px;
+    
+    }
+  </style>
+</head>
+<body>
+
+<header>
+    <div class="header-inner">
+      <a href="home.html" class="site-brand" aria-label="AquaAction home">
+        <img src="logo.jpg" alt="AquaAction logo – water droplet icon" />
+        <div class="site-brand-text">
+          <span class="site-title">AquaAction</span>
+          <span class="site-sdg-badge">SDG 6 · Clean Water &amp; Sanitation</span>
+        </div>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul>
+          
+          <li><a href="home.html">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="ais.html">Impact Simulator</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="profile.html">User Profile</a></li>
+          <li><a href="sitemap.html">Sitemap</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div id="top"></div>
+
+
+  <div class="val-header">
+    <h1>Validation Page – Student 2</h1>
+    <p>HTML validation evidence for all pages implemented by Student 2.</p>
+  </div>
+
+  <div class="val-wrap">
+
+   
+    <nav class="val-toc" aria-label="Validation page contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#val-feedback">ais Page</a></li>
+        <li><a href="#val-team">Profile Page</a></li>
+        <li><a href="#val-content">Content Page</a></li>
+        <li><a href="#val-reflection">Reflection on Validation</a></li>
+      </ol>
+    </nav>
+
+    
+    <section class="val-section" id="val-feedback">
+      <h2>
+        1. Simulator Page
+        <span class="badge badge-pending">Pending screenshot</span>
+      </h2>
+      <p>
+        <strong>File:</strong> <code>ais.html</code><br />
+        <strong>Validator used:</strong>
+        <a href="https://validator.w3.org/" target="_blank" rel="noopener">W3C Markup Validation Service</a>
+      </p>
+      <a class="page-link" href="ais.html" target="_blank" rel="noopener">View Live Page ↗</a>
+
+      <img class="content-img" src="images/aischeck.png" alt="Screenshot of ais.html page" >
+
+      <p><em>Warnings (if any): [Note any warnings here, or state "None"]</em></p>
+    </section>
+
+ 
+    <section class="val-section" id="val-team">
+      <h2>
+        2. Splashscreen page
+        <span class="badge badge-pending">Pending screenshot</span>
+      </h2>
+      <p>
+        <strong>File:</strong> <code>Splashscreen.html</code><br />
+        <strong>Validator used:</strong>
+        <a href="https://validator.w3.org/" target="_blank" rel="noopener">W3C Markup Validation Service</a>
+      </p>
+      <a class="page-link" href="Splashscreen.html" target="_blank" rel="noopener">View Live Page ↗</a>
+
+      <img class="content-img" src="images/splashcheck.png" alt="Screenshot of Splashscreen.html page" >
+
+      <p><em>Warnings (if any): [Note any warnings here, or state "None"]</em></p>
+    </section>
+
+  
+    <section class="val-section" id="val-content">
+      <h2>
+        3. Content Page
+        <span class="badge badge-pending">Pending screenshot</span>
+      </h2>
+      <p>
+        <strong>File:</strong> <code>content_ST2.html</code><br />
+        <strong>Validator used:</strong>
+        <a href="https://validator.w3.org/" target="_blank" rel="noopener">W3C Markup Validation Service</a>
+      </p>
+      <a class="page-link" href="content_ST2.html" target="_blank" rel="noopener">View Live Page ↗</a>
+      <img class="content-img" src="images/contentcheck.png" alt="Screenshot of Content_student2.html page" >
+
+      <p><em>Warnings (if any): [Note any warnings here, or state "None"]</em></p>
+    </section>
+
+    <section class="val-section" id="val-reflection">
+      <h2>4. Reflection on Validation</h2>
+      <p>
+      
+        Some images were missing alt attributes, and a few file names had spaces, causing src errors. I also found a few unclosed tags and incorrect nesting.
+      </p>
+      <p>
+        
+        I added descriptive alt text for all images, renamed files to remove spaces, and corrected any unclosed or misnested tags. Then I re-validated each page with the W3C tool.
+      </p>
+      <p>
+        Validation taught me the importance of semantic HTML, proper file naming, and careful coding. It helps make pages accessible, error-free, and easier to maintain.
+      </p>
+    </section>
+
+  </div>
+
+  
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>AquaAction</h4>
+        <p>University of Westminster, 2025/26</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="ais.html">Home</a>
+        <a href="Profile.html">Gallery</a>
+        <a href="sitemap.html">Sitemap</a>
+      </div>
+      <div class="footer-col">
+        <h4>This Page</h4>
+        <a href="pageeditor_ST2.html">Page Editor</a>
+        <a href="validation_ST2.html">Validation</a>
+      </div>
+      <div class="footer-col">
+        <h4>Student 2 Details</h4>
+        <p>Name: Sadiksha Kc</p>
+        <p>Student ID: w2122051</p>
+        <p>Role: Splash screen & Simulator</p>
+        <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" rel="noopener">Accessibility (WCAG 2.1)</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 AquaAction – University of Westminster</span>
+    </div>
+  </footer>
+
+  <a href="#top" class="go-top" aria-label="Go to top of page">↑ Top</a>
+
+</body>
+</html>

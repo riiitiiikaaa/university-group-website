@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home – AquaAction | SDG 6: Clean Water &amp; Sanitation</title>
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- ============================================================
+       PAGE-SPECIFIC EMBEDDED CSS – Home Page only
+       Author: Student 1
+       Purpose: Gallery tiles, hero section, and home page extras.
+       These styles DO NOT override global CSS – they only target
+       elements unique to home.html.
+  ============================================================ -->
+  <style>
+
+    /* 1. Hero / Banner section */
+    .hero {
+      background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary) 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 5rem 1.5rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative water-wave pseudo-element */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background: var(--white);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+
+    .hero h1 {
+      color: var(--white);
+      margin-bottom: 1rem;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .hero p {
+      color: rgba(255,255,255,0.9);
+      font-size: 1.15rem;
+      max-width: 620px;
+      margin: 0 auto 2rem;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Hero button variant for white background */
+    .btn-hero-white {
+      background: var(--white);
+      color: var(--primary);
+      padding: 0.65rem 1.5rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      font-family: 'DM Sans', sans-serif;
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: inline-block;
+    }
+    .btn-hero-white:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      color: var(--primary-dark);
+    }
+
+    /* 2. Cards grid on home page */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    /* 3. Interactive gallery tiles linking to content pages */
+    .content-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1rem;
+    }
+
+    /* Each gallery tile */
+    .gallery-tile {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      cursor: pointer;
+      height: 220px;
+      box-shadow: var(--card-shadow);
+      text-decoration: none;
+      display: block;
+    }
+
+    .gallery-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0;
+      transition: transform 0.4s ease;
+    }
+
+    /* Overlay on tile */
+    .gallery-tile-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,55,90,0.85) 0%, rgba(0,55,90,0.1) 60%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 1.2rem;
+      transition: background 0.3s ease;
+    }
+
+    .gallery-tile-overlay h3 {
+      color: var(--white);
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .gallery-tile-overlay span {
+      color: var(--accent);
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    /* Hover effect on gallery tiles (interaction logic in JS) */
+    .gallery-tile.hovered img {
+      transform: scale(1.08);
+    }
+
+    .gallery-tile.hovered .gallery-tile-overlay {
+      background: linear-gradient(to top, rgba(0,55,90,0.95) 0%, rgba(0,119,182,0.35) 60%);
+    }
+
+    /* 4. "Explore more" arrow badge on tiles */
+    .tile-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: var(--secondary);
+      color: var(--white);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.7rem;
+      border-radius: 20px;
+      opacity: 0;
+      transform: translateY(-6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    .gallery-tile.hovered .tile-badge {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* 5. List style inside cards (highlights) */
+    .highlight-list {
+      list-style: none;
+      padding: 0;
+      margin: 0.6rem 0 1rem;
+    }
+
+    .highlight-list li {
+      padding-left: 1.4rem;
+      position: relative;
+      font-size: 0.88rem;
+      margin-bottom: 0.35rem;
+      color: var(--neutral-mid);
+    }
+
+    .highlight-list li::before {
+      content: '✦';
+      position: absolute;
+      left: 0;
+      color: var(--secondary);
+      font-size: 0.7rem;
+      top: 0.15rem;
+    }
+
+    /* 6. Stat strip */
+    .stat-strip {
+      background: var(--neutral-light);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .stat-item strong {
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      color: var(--primary);
+    }
+
+    .stat-item span {
+      font-size: 0.85rem;
+      color: var(--neutral-mid);
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HEADER & NAV (DO NOT MODIFY) ═══ -->
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="site-brand" aria-label="AquaAction home">
+        <img src="images/logo.jpg" alt="AquaAction logo – water droplet icon" />
+        <div class="site-brand-text">
+          <span class="site-title">AquaAction</span>
+          <span class="site-sdg-badge">SDG 6 · Clean Water &amp; Sanitation</span>
+        </div>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="home.html" class="active">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="ais.html">Impact Simulator</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="profile.html">User Profile</a></li>
+          <li><a href="sitemap.html">Sitemap</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!-- ═══ END HEADER ═══ -->
+
+
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <main>
+
+    <!-- Hero Section -->
+    <section class="hero" aria-labelledby="hero-heading">
+      <h1 id="hero-heading">Water Is Life.<br>Let's Protect It.</h1>
+      <p>
+        Over 2 billion people still lack access to safe drinking water.
+        AquaAction shows how <em>you</em> — as a student, citizen, or
+        future professional — can help change that.
+      </p>
+      <div class="hero-btns">
+        <a href="#mission" class="btn-hero-white">Our Mission</a>
+        <a href="ais.html" class="btn btn-primary">Try the Impact Simulator</a>
+      </div>
+    </section>
+
+
+    <!-- Stats Strip -->
+    <div class="container">
+      <div class="stat-strip" role="region" aria-label="Key statistics about SDG 6">
+        <div class="stat-item">
+          <strong>2.2B</strong>
+          <span>people lack safe<br>drinking water</span>
+        </div>
+        <div class="stat-item">
+          <strong>3.5B</strong>
+          <span>lack safely managed<br>sanitation</span>
+        </div>
+        <div class="stat-item">
+          <strong>80%</strong>
+          <span>of wastewater flows back<br>untreated into nature</span>
+        </div>
+        <div class="stat-item">
+          <strong>SDG 6</strong>
+          <span>Clean Water &amp;<br>Sanitation by 2030</span>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Mission Cards Section -->
+    <section id="mission" aria-labelledby="mission-heading" style="padding: 2rem 0;">
+      <div class="container">
+        <div class="section-title">
+          <h2 id="mission-heading">Why Clean Water Matters</h2>
+          <div class="divider" aria-hidden="true"></div>
+          <p>SDG 6 is one of the most urgent global goals — here's what's at stake and what we can do.</p>
+        </div>
+
+        <div class="cards-grid">
+
+          <!-- Card 1 – links to content_ST1: The Global Water Crisis -->
+          <article class="card">
+            <img
+              class="card-img"
+              src="images/card1.jpg"
+              alt="Cracked dry earth showing the effects of water scarcity"
+            />
+            <div class="card-body">
+              <h3>The Global Water Crisis</h3>
+              <p>
+                Over 2.2 billion people lack access to safe drinking water.
+                Understanding the scale and causes of the crisis is the first
+                step toward solving it.
+              </p>
+              <ul class="highlight-list">
+                <li>785 million people have no basic water service</li>
+                <li>Women spend 200 million hours daily collecting water</li>
+                <li>Diarrhoea kills 530,000 children under five every year</li>
+              </ul>
+              <a href="content_ST1.html" class="btn btn-primary" style="margin-top:auto;">Read More</a>
+            </div>
+          </article>
+
+          <!-- Card 2 – links to content_ST2: Water Pollution -->
+          <article class="card">
+            <img
+              class="card-img"
+              src="images/card2.jpg"
+              alt="A polluted river with dark water and industrial waste on the banks"
+            />
+            <div class="card-body">
+              <h3>Water Pollution</h3>
+              <p>
+                80% of the world's wastewater flows back into nature untreated.
+                Pollution is one of the biggest threats to safe water access
+                across the globe.
+              </p>
+              <ul class="highlight-list">
+                <li>Industrial discharge contaminates rivers and lakes</li>
+                <li>8 million tonnes of plastic enter oceans every year</li>
+                <li>Polluted water kills more people annually than war</li>
+              </ul>
+              <a href="content_ST2.html" class="btn btn-primary" style="margin-top:auto;">Read More</a>
+            </div>
+          </article>
+
+          <!-- Card 3 – links to content_ST3: Sanitation & Hygiene -->
+          <article class="card">
+            <img
+              class="card-img"
+              src="images/card3.jpg"
+              alt="Children washing hands at an outdoor handwashing station at school"
+            />
+            <div class="card-body">
+              <h3>Sanitation &amp; Hygiene</h3>
+              <p>
+                3.6 billion people lack safely managed sanitation. Access to
+                clean toilets and handwashing facilities saves millions of
+                lives — especially children's.
+              </p>
+              <ul class="highlight-list">
+                <li>1 in 3 schools worldwide lacks basic toilet facilities</li>
+                <li>Handwashing reduces diarrhoeal disease by up to 40%</li>
+                <li>Poor sanitation costs countries up to 5% of their GDP</li>
+              </ul>
+              <a href="content_ST3.html" class="btn btn-primary" style="margin-top:auto;">Read More</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Interactive Gallery linking to Content Pages -->
+    <section id="explore" aria-labelledby="explore-heading" style="padding: 2rem 0 3rem;">
+      <div class="container">
+        <div class="section-title">
+          <h2 id="explore-heading">Explore Our Topics</h2>
+          <div class="divider" aria-hidden="true"></div>
+          <p>Click a topic to preview and read more.</p>
+        </div>
+
+        <div class="content-gallery">
+
+          <!-- Tile 1 – Student 1's content page -->
+          <div class="gallery-tile" data-id="tile1">
+            <a href="content_ST1.html" aria-label="Read about The Global Water Crisis">
+              <img src="images/tile1.jpg" alt="Cracked dry earth showing the effects of water scarcity" />
+              <div class="gallery-tile-overlay">
+                <h3>The Global Water Crisis</h3>
+                <span>Scale &amp; Causes</span>
+              </div>
+              <span class="tile-badge" aria-hidden="true">Read &rarr;</span>
+            </a>
+          </div>
+
+          <!-- Tile 2 – Student 2's content page -->
+          <div class="gallery-tile" data-id="tile2">
+            <a href="content_ST2.html" aria-label="Read about Water Pollution">
+              <img src="images/tile2.jpg" alt="A polluted river with industrial waste and discolouration" />
+              <div class="gallery-tile-overlay">
+                <h3>Water Pollution</h3>
+                <span>Causes &amp; Effects</span>
+              </div>
+              <span class="tile-badge" aria-hidden="true">Read &rarr;</span>
+            </a>
+          </div>
+
+          <!-- Tile 3 – Student 3's content page -->
+          <div class="gallery-tile" data-id="tile3">
+            <a href="content_ST3.html" aria-label="Read about Sanitation and Hygiene">
+              <img src="images/tile3.jpg" alt="Children washing hands at an outdoor handwashing station" />
+              <div class="gallery-tile-overlay">
+                <h3>Sanitation &amp; Hygiene</h3>
+                <span>Health &amp; Dignity</span>
+              </div>
+              <span class="tile-badge" aria-hidden="true">Read &rarr;</span>
+            </a>
+          </div>
+
+          <!-- Tile 4 – Student 4's content page -->
+          <div class="gallery-tile" data-id="tile4">
+            <a href="content_ST4.html" aria-label="Read about Water Scarcity and Conservation">
+              <img src="images/tile4.jpg" alt="Solar-powered water purification technology in use" />
+              <div class="gallery-tile-overlay">
+                <h3>Water Technology &amp; Innovation</h3>
+                <span>Future Solutions</span>
+              </div>
+              <span class="tile-badge" aria-hidden="true">Read &rarr;</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+  <!-- ═══ END MAIN ═══ -->
+
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>AquaAction</h4>
+        <p>A student project for SDG 6: Clean Water &amp; Sanitation.</p>
+        <p>University of Westminster, 2025/26</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="home.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="ais.html">Impact Simulator</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="team.html">Team</a>
+        <a href="profile.html">User Profile</a>
+        <a href="sitemap.html">Sitemap</a>
+      </div>
+      <div class="footer-col">
+        <h4>This Page</h4>
+        <a href="pageEditor_ST1.html">Page Editor</a>
+        <a href="validation_ST1.html">Validation</a>
+      </div>
+      <div class="footer-col">
+        <h4>Student 1 Details</h4>
+        <p>Name:Erika Shrestha</p>
+        <p>Student ID:W2121989</p>
+        <p>Role:Home Page &amp; Gallery</p>
+        <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" rel="noopener">
+          Accessibility (WCAG 2.1)
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 AquaAction – University of Westminster</span>
+      <span>SDG 6: Clean Water &amp; Sanitation</span>
+    </div>
+  </footer>
+  <!-- ═══ END FOOTER ═══ -->
+
+
+  <!-- ═══ HOME PAGE JAVASCRIPT ═══ -->
+  <script>
+    
+    /**
+     * Gallery Tile Hover Interactions
+     * Adds/removes the 'hovered' class on gallery tiles using
+     * JavaScript event listeners (mouseover / mouseout).
+     * The visual transition is handled by CSS, but the LOGIC
+     * is controlled here in JS as required by the brief.
+     */
+    // Gallery tile hover – JS toggles hovered class on each tile div
+    var tiles = document.querySelectorAll('.gallery-tile');
+
+    tiles.forEach(function(tile) {
+
+      // Mouseover: add hovered class
+      tile.addEventListener('mouseover', function() {
+        tile.classList.add('hovered');
+      });
+
+      // Mouseout: remove hovered class
+      tile.addEventListener('mouseout', function() {
+        tile.classList.remove('hovered');
+      });
+
+      // Keyboard focus on the inner link: treat focus like hover
+      var link = tile.querySelector('a');
+      if (link) {
+        link.addEventListener('focus', function() {
+          tile.classList.add('hovered');
+        });
+        link.addEventListener('blur', function() {
+          tile.classList.remove('hovered');
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

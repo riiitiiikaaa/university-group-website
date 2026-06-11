@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Page Editor – Student 1 | AquaAction</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Page Editor specific styles */
+    body { background: #f4f7f9; }
+
+    .pe-header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+    .pe-header h1 { color: var(--white); margin-bottom: 0.4rem; }
+    .pe-header p  { color: rgba(255,255,255,0.85); margin: 0; }
+
+    .pe-wrap {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 2rem;
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem 4rem;
+      align-items: start;
+    }
+
+    /* Sidebar table of contents */
+    .pe-toc {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      padding: 1.4rem;
+      position: sticky;
+      top: 90px;
+    }
+    .pe-toc h2 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--neutral-mid);
+      margin-bottom: 0.8rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+    }
+    .pe-toc ol {
+      padding-left: 1.2rem;
+      margin: 0;
+    }
+    .pe-toc ol li { margin-bottom: 0.5rem; }
+    .pe-toc ol li a {
+      font-size: 0.88rem;
+      color: var(--primary);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .pe-toc ol li a:hover { color: var(--secondary); }
+
+    /* Main content area */
+    .pe-content section {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      padding: 2rem 2.2rem;
+      margin-bottom: 2rem;
+      scroll-margin-top: 90px;
+    }
+
+    .pe-content h2 {
+      font-size: 1.3rem;
+      color: var(--primary);
+      border-bottom: 2px solid var(--neutral-light);
+      padding-bottom: 0.6rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .pe-content h3 {
+      font-size: 1.05rem;
+      margin: 1.2rem 0 0.5rem;
+      color: var(--neutral-dark);
+    }
+
+    .pe-content p, .pe-content li {
+      font-size: 0.93rem;
+      color: var(--neutral-mid);
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--neutral-light);
+      color: var(--primary);
+      border-radius: 4px;
+      padding: 0.15rem 0.55rem;
+      font-size: 0.8rem;
+      font-family: 'Courier New', monospace;
+      margin: 0.1rem;
+    }
+
+    /* Meetings table */
+    .meetings-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-top: 1rem;
+    }
+    .meetings-table th {
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.6rem 0.8rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    .meetings-table td {
+      padding: 0.6rem 0.8rem;
+      border-bottom: 1px solid var(--neutral-light);
+      color: var(--neutral-mid);
+      vertical-align: top;
+    }
+    .meetings-table tr:last-child td { border-bottom: none; }
+    .meetings-table tr:nth-child(even) td { background: #f9fbfd; }
+
+    /* Page links */
+    .page-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.45rem 1rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      margin: 0.3rem 0.3rem 0.3rem 0;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .page-link:hover {
+      background: var(--primary-dark);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    /* Go to top button */
+    .go-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--primary);
+      color: var(--white);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(0,119,182,0.35);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .go-top:hover {
+      background: var(--primary-dark);
+      color: var(--white);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .pe-wrap { grid-template-columns: 1fr; }
+      .pe-toc  { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER & NAV -->
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="site-brand" aria-label="AquaAction home">
+        <img src="images/logo.jpg" alt="AquaAction logo – water droplet icon" />
+        <div class="site-brand-text">
+          <span class="site-title">AquaAction</span>
+          <span class="site-sdg-badge">SDG 6 · Clean Water &amp; Sanitation</span>
+        </div>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="ais.html">Impact Simulator</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="profile.html">User Profile</a></li>
+          <li><a href="sitemap.html">Sitemap</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div id="top"></div>
+
+  <!-- PAGE EDITOR BANNER -->
+  <div class="pe-header">
+    <h1>Page Editor – Student 1</h1>
+    <p>Technical report documenting the implementation of my assigned pages.</p>
+  </div>
+
+  <div class="pe-wrap">
+
+    <!-- SIDEBAR TABLE OF CONTENTS -->
+    <aside class="pe-toc" aria-label="Page contents">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#overview">Student Overview</a></li>
+        <li><a href="#global-css">Global CSS &amp; Template</a></li>
+        <li><a href="#home-page">Home Page</a></li>
+        <li><a href="#gallery-page">Gallery Page</a></li>
+        <li><a href="#content-page">Content Page</a></li>
+        <li><a href="#challenges">Challenges &amp; Lessons</a></li>
+        <li><a href="#accessibility">Accessibility</a></li>
+        <li><a href="#janet">JANET Compliance</a></li>
+        <li><a href="#meetings">Group Meetings Log</a></li>
+        <li><a href="#references">References</a></li>
+      </ol>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="pe-content">
+
+      <!-- 1. Student Overview -->
+      <section id="overview">
+        <h2>1. Student Overview</h2>
+        <h3>Student Details</h3>
+        <p><strong>Name:</strong>Erika Shrestha</p>
+        <p><strong>Student ID:</strong>W2121989</p>
+        <p><strong>Role:</strong> Student 1 – Global CSS, Shared Template, Home Page, Gallery Page</p>
+
+        <h3>Team Task Division</h3>
+        <p>Our group of four students divided the work as follows:</p>
+        <ul>
+          <li><strong>Student 1 (me):</strong> Global CSS, Home Page, Gallery Page, Content Page – The Global Water Crisis</li>
+          <li><strong>Student 2:</strong> Splash Screen, SDG Action Impact Simulator, Content Page – Water Pollution</li>
+          <li><strong>Student 3:</strong> Feedback &amp; Programme Directory, Team Page, Content Page – Sanitation &amp; Hygiene</li>
+          <li><strong>Student 4:</strong> User Profile, Sitemap, Content Page – Water Technology &amp; Innovation</li>
+        </ul>
+        <p>All students individually completed their own Page Editor and Validation pages. Design decisions such as the colour palette, site name (AquaAction), and content topics were agreed collaboratively as a group.</p>
+
+        <h3>My Completed Pages &amp; Tasks</h3>
+        <ul>
+          <li>Global CSS file (<code>style.css</code>) – shared across all team pages</li>
+          <li>Home Page (<code>home.html</code>)</li>
+          <li>Gallery Page (<code>gallery.html</code>) + <code>gallery.js</code></li>
+          <li>Content Page (<code>content_ST1.html</code>) – The Global Water Crisis</li>
+          <li>Page Editor (<code>pageEditor_ST1.html</code>)</li>
+          <li>Validation Page (<code>validation_ST1.html</code>)</li>
+        </ul>
+
+        <h3>Links to Implemented Pages</h3>
+        <a class="page-link" href="home.html" target="_blank" rel="noopener">Home Page ↗</a>
+        <a class="page-link" href="gallery.html" target="_blank" rel="noopener">Gallery Page ↗</a>
+        <a class="page-link" href="content_ST1.html" target="_blank" rel="noopener">Content Page ↗</a>
+      </section>
+
+      <!-- 2. Global CSS & Template -->
+      <section id="global-css">
+        <h2>2. Global CSS &amp; Shared Template</h2>
+
+        <h3>HTML Structure</h3>
+        <p>
+          The shared template uses a standard semantic HTML structure with
+          <span class="tag">&lt;header&gt;</span>,
+          <span class="tag">&lt;nav&gt;</span>,
+          <span class="tag">&lt;main&gt;</span>, and
+          <span class="tag">&lt;footer&gt;</span> elements to clearly separate
+          the page regions. This supports both accessibility and search engine readability.
+        </p>
+
+        <h3>CSS Techniques</h3>
+        <p>
+          The global CSS uses <strong>CSS custom properties (variables)</strong> defined on
+          <span class="tag">:root</span> to manage the colour palette consistently.
+          Layout is achieved with <strong>Flexbox</strong> for the header and navigation,
+          and <strong>CSS Grid</strong> for the footer columns and card grids.
+          <strong>Responsive design</strong> is handled through <span class="tag">@media</span>
+          queries targeting 768px and 480px breakpoints.
+        </p>
+
+        <h3>Design &amp; Implementation Rationale</h3>
+        <p>
+          A blue-and-cyan palette was chosen to reflect the water and ocean theme of SDG 6.
+          Playfair Display was selected for headings to give the site an authoritative, editorial
+          feel, while DM Sans provides clean readability for body text. The sticky header ensures
+          navigation is always accessible regardless of scroll position.
+        </p>
+
+        <h3>Validation Evidence</h3>
+        <a class="page-link" href="validation_ST1.html#val-css" target="_blank" rel="noopener">
+          See CSS Validation ↗
+        </a>
+      </section>
+
+      <!-- 3. Home Page -->
+      <section id="home-page">
+        <h2>3. Home Page</h2>
+
+        <h3>HTML Structure</h3>
+        <p>
+          The Home Page uses <span class="tag">&lt;section&gt;</span> elements for the hero,
+          statistics strip, mission cards, and interactive gallery. Each section has a descriptive
+          <span class="tag">aria-labelledby</span> attribute linking to its heading for screen
+          reader accessibility. Cards use <span class="tag">&lt;article&gt;</span> tags as
+          they represent self-contained pieces of content.
+        </p>
+
+        <h3>CSS Techniques</h3>
+        <p>
+          Page-specific embedded CSS handles the hero gradient background, the wave clip-path
+          divider, the cards grid layout using <strong>CSS Grid</strong> with
+          <span class="tag">auto-fit</span> and <span class="tag">minmax</span>, and the
+          interactive gallery tiles with absolute-positioned overlays and smooth CSS transitions.
+          A minimum of five CSS rules are defined in the embedded <span class="tag">&lt;style&gt;</span>
+          block, all clearly commented.
+        </p>
+
+        <h3>JavaScript</h3>
+        <p>
+          JavaScript event listeners (<span class="tag">mouseover</span>,
+          <span class="tag">mouseout</span>, <span class="tag">focus</span>,
+          <span class="tag">blur</span>) are used to toggle the
+          <span class="tag">hovered</span> class on gallery tiles. This drives the visual
+          hover effect (CSS handles the appearance, JS controls the logic), satisfying the
+          coursework requirement that interaction logic is implemented in JavaScript.
+        </p>
+
+        <h3>Validation Evidence</h3>
+        <a class="page-link" href="validation_ST1.html#val-home" target="_blank" rel="noopener">
+          See Home Page Validation ↗
+        </a>
+      </section>
+
+      <!-- 4. Gallery Page -->
+      <section id="gallery-page">
+        <h2>4. Gallery Page</h2>
+
+        <h3>HTML Structure</h3>
+        <p>
+          The gallery uses a grid of <span class="tag">&lt;div&gt;</span> elements with
+          <span class="tag">role="listitem"</span> and <span class="tag">tabindex="0"</span>
+          to make them keyboard accessible. A hidden modal dialog uses
+          <span class="tag">role="dialog"</span> and <span class="tag">aria-modal="true"</span>
+          to communicate its purpose to screen readers.
+        </p>
+
+        <h3>CSS Techniques</h3>
+        <p>
+          Page-specific embedded CSS styles the thumbnail grid, hover effects, modal overlay
+          (using <span class="tag">position: fixed</span> and <span class="tag">inset: 0</span>),
+          and a CSS <span class="tag">@keyframes</span> animation for the modal entrance.
+          The modal is hidden by default (<span class="tag">display: none</span>) and shown
+          by JS adding the <span class="tag">modal-open</span> class.
+        </p>
+
+        <h3>JavaScript</h3>
+        <p>
+          A <span class="tag">galleryData</span> array stores image data for all 6 thumbnails.
+          Clicking a thumbnail calls <span class="tag">openModal(index)</span>, which uses
+          DOM manipulation to populate the modal with the correct image, title, and description.
+          The close interaction is handled via a close button, clicking outside the modal, and
+          the Escape key. User customisation (colour scheme and font style) is applied using
+          JavaScript to the modal content area only, without affecting global styles.
+        </p>
+
+        <h3>Validation Evidence</h3>
+        <a class="page-link" href="validation_ST1.html#val-gallery" target="_blank" rel="noopener">
+          See Gallery Validation ↗
+        </a>
+      </section>
+
+      <!-- 5. Content Page -->
+      <section id="content-page">
+        <h2>5. Content Page</h2>
+
+        <h3>Overview</h3>
+        <p>
+          <!-- Briefly describe your content page topic here -->
+          My content page covers [your topic, e.g. "The Global Water Crisis"]. It is divided
+          into clearly labelled sections using <span class="tag">&lt;h2&gt;</span> and
+          <span class="tag">&lt;h3&gt;</span> headings in a logical hierarchy.
+        </p>
+
+        <h3>HTML Structure</h3>
+        <p>
+          The page uses <span class="tag">&lt;section&gt;</span> elements with unique
+          <span class="tag">id</span> attributes to enable anchor-based internal navigation.
+          A fixed "Go to Top" button uses <span class="tag">position: fixed</span> in CSS.
+          At least four images are included with meaningful <span class="tag">alt</span> text.
+        </p>
+
+        <h3>Internal Navigation</h3>
+        <p>
+          A contents list at the top of the page uses anchor links
+          (<span class="tag">href="#section-id"</span>) to allow users to jump between sections
+          without scrolling, satisfying the internal linking requirement.
+        </p>
+
+        <h3>Validation Evidence</h3>
+        <a class="page-link" href="validation_ST1.html#val-content" target="_blank" rel="noopener">
+          See Content Page Validation ↗
+        </a>
+      </section>
+
+      <!-- 6. Challenges & Lessons Learned -->
+      <section id="challenges">
+        <h2>6. Challenges &amp; Lessons Learned</h2>
+        <p>
+          One of the main challenges I faced was creating the Global CSS file that all four
+          team members would share. I had to make sure the styles were general enough to work
+          across every page, without being so specific that they interfered with each student's
+          own page design. I solved this by keeping the global CSS focused only on shared
+          components — the header, nav, footer, cards, and buttons — and using clear comments
+          to explain which parts should not be changed.
+        </p>
+        <p>
+          Building the gallery modal with JavaScript was another challenge. Getting the modal
+          to close when the user clicked outside the box required checking whether the click
+          target was the overlay element itself rather than the modal box inside it. I learned
+          to use <code>e.target === this</code> inside the event listener to handle this
+          correctly. I also learned how to move keyboard focus into the modal when it opens,
+          which is important for accessibility.
+        </p>
+        <p>
+          Working collaboratively on a shared codebase taught me the importance of consistent
+          file naming and folder structure. Early on, some navigation links were broken because
+          teammates used slightly different file names. This taught me that agreeing on exact
+          file names at the start of the project and sticking to them is essential for
+          a multi-person web project.
+        </p>
+      </section>
+
+      <!-- 7. Accessibility -->
+      <section id="accessibility">
+        <h2>7. Accessibility Considerations</h2>
+        <p>
+          Accessibility was considered throughout the development of all my pages. Key techniques
+          used include:
+        </p>
+        <ul>
+          <li>
+            <strong>Semantic HTML:</strong> Using elements like
+            <span class="tag">&lt;header&gt;</span>,
+            <span class="tag">&lt;nav&gt;</span>,
+            <span class="tag">&lt;main&gt;</span>,
+            <span class="tag">&lt;section&gt;</span>, and
+            <span class="tag">&lt;footer&gt;</span> so that screen readers can identify
+            page regions correctly.
+          </li>
+          <li>
+            <strong>Alt text:</strong> Every image across all my pages includes a descriptive
+            <span class="tag">alt</span> attribute that conveys the image's meaning to
+            visually impaired users.
+          </li>
+          <li>
+            <strong>Keyboard navigation:</strong> Gallery thumbnails and interactive tiles
+            include <span class="tag">tabindex="0"</span> and keyboard event listeners
+            so that users who cannot use a mouse can still interact with them.
+          </li>
+          <li>
+            <strong>Colour contrast:</strong> The primary blue (#0077b6) against white meets
+            WCAG 2.1 AA contrast ratio requirements for normal text.
+          </li>
+          <li>
+            <strong>ARIA attributes:</strong> The modal uses <span class="tag">role="dialog"</span>
+            and <span class="tag">aria-modal="true"</span>; nav uses
+            <span class="tag">aria-label</span>; sections use
+            <span class="tag">aria-labelledby</span>.
+          </li>
+        </ul>
+      </section>
+
+      <!-- 8. JANET Compliance -->
+      <section id="janet">
+        <h2>8. JANET Compliance</h2>
+        <p>
+          All pages I created comply with JANET regulations governing the publication of
+          web pages on university servers. Specifically:
+        </p>
+        <ul>
+          <li>
+            <strong>Appropriate content:</strong> All content is relevant to SDG 6 and the
+            academic purpose of this coursework. No offensive, illegal, or discriminatory
+            material has been published.
+          </li>
+          <li>
+            <strong>External resources:</strong> All images sourced from third-party sites
+            (e.g. iStockPhoto) are royalty-free and are referenced in the References section.
+            No copyrighted material has been reproduced without permission.
+          </li>
+          <li>
+            <strong>Academic integrity:</strong> All written content is original and produced
+            by me. No text has been copied directly from the UN SDG website or other sources
+            without attribution.
+          </li>
+          <li>
+            <strong>No personal data collection:</strong> The website does not collect, store,
+            or process personal data from users, in line with responsible web publishing practice.
+          </li>
+        </ul>
+      </section>
+
+      <!-- 9. Group Meetings Log -->
+      <section id="meetings">
+        <h2>9. Group Meetings &amp; Contribution Log</h2>
+        <p>
+          A minimum of six meetings were held across the project. My individual contributions
+          at each meeting are recorded below.
+        </p>
+
+        <table class="meetings-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Date &amp; Time</th>
+              <th>Format</th>
+              <th>Objective</th>
+              <th>Attended</th>
+              <th>My Individual Contribution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>March 9,10am</td>
+              <td>Face-to-Face</td>
+              <td>Agree SDG topic and assign roles</td>
+              <td>Yes</td>
+              <td>Proposed SDG 6, agreed to take Student 1 role covering template and home page.</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>March 13,2pm</td>
+              <td>Online</td>
+              <td>Agree colour palette and site name</td>
+              <td>Yes</td>
+              <td>Proposed the cyan water theme.</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>March 20,12pm</td>
+              <td>Online</td>
+              <td>Share template and CSS with team</td>
+              <td>Yes</td>
+              <td>Shared style.css </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>March 26,11am</td>
+              <td>Face-to-face</td>
+              <td>Progress review – check all pages linking correctly</td>
+              <td>Yes</td>
+              <td>Tested navigation links across all student pages.</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>April 1,4pm </td>
+              <td>Online</td>
+              <td>Review accessibility and validation</td>
+              <td>Yes</td>
+              <td>Ran W3C validation on my pages.</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>April 3, 12 pm</td>
+              <td>Face-to-face </td>
+              <td>Final review before submission</td>
+              <td>Yes</td>
+              <td>Confirmed all URLs work correctly.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <!-- 10. References -->
+      <section id="references">
+        <h2>10. References</h2>
+        <p>All resources consulted during the development of my pages are listed below.</p>
+        <ol>
+          <li id="ref1">
+            MDN Web Docs (2025) <em>HTML, CSS and JavaScript reference</em>. Available at:
+            <a href="https://developer.mozilla.org" target="_blank" rel="noopener">developer.mozilla.org</a>
+            [Accessed: March 2026].
+          </li>
+          <li id="ref2">
+            Google (2026) <em>Images used across website pages</em>. Available at:
+            <a href="https://images.google.com" target="_blank" rel="noopener">images.google.com</a>
+            [Accessed: March 2026]. All images used for educational, non-commercial purposes only.
+          </li>
+          <li id="ref3">
+            United Nations (2025) <em>Sustainable Development Goal 6 – Clean Water and Sanitation</em>. Available at:
+            <a href="https://sdgs.un.org/goals/goal6" target="_blank" rel="noopener">sdgs.un.org</a>
+            [Accessed: February 2026].
+          </li>
+          <li id="ref4">
+            Module lecture notes – 4COSC011W Web Design and Development, University of Westminster, 2025/26.
+          </li>
+        </ol>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>AquaAction</h4>
+        <p>University of Westminster, 2025/26</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="home.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="sitemap.html">Sitemap</a>
+      </div>
+      <div class="footer-col">
+        <h4>This Page</h4>
+        <a href="pageEditor_ST1.html">Page Editor</a>
+        <a href="validation_ST1.html">Validation</a>
+      </div>
+      <div class="footer-col">
+        <h4>Student 1 Details</h4>
+        <p>Name:Erika Shrestha</p>
+        <p>Student ID:W2121989</p>
+        <p>Role:Home Page &amp; Gallery</p>
+        <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" rel="noopener">Accessibility (WCAG 2.1)</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 AquaAction – University of Westminster</span>
+    </div>
+  </footer>
+
+  <!-- Go to Top button (CSS only, no JS needed) -->
+  <a href="#top" class="go-top" aria-label="Go to top of page">↑ Top</a>
+
+</body>
+</html>

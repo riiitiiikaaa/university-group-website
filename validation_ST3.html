@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Validation – Student 3 | AquaAction</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    body {
+      background: #f4f7f9;
+    }
+
+    .val-header {
+      background: var(--primary);
+      color: var(--white);
+      padding: 2.5rem 1.5rem;
+      text-align: center;
+    }
+
+    .val-header h1,
+    .val-header p {
+      color: var(--white);
+    }
+
+    .val-wrap {
+      max-width: 900px;
+      margin: 0;
+      padding: 0 0 0 0;
+    }
+
+    .page-wrap {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 2.5rem auto 4rem;
+      padding: 0 1.5rem;
+      align-items: start;
+    }
+
+    .pe-toc {
+      background: #ffffff;
+      border: 1px solid #cce3f0;
+      border-radius: 18px;
+      box-shadow: 0 10px 28px rgba(0, 55, 74, 0.08);
+      padding: 1.5rem 1.5rem 1.5rem 1.4rem;
+      position: sticky;
+      top: 100px;
+      height: fit-content;
+    }
+
+    .pe-toc h2 {
+      font-size: 0.92rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-family: var(--font-body);
+      font-weight: 700;
+    }
+
+    .pe-toc ol {
+      padding-left: 1.1rem;
+      margin: 0;
+      list-style: decimal;
+      color: var(--neutral-dark);
+    }
+
+    .pe-toc ol li {
+      margin-bottom: 0.65rem;
+    }
+
+    .pe-toc ol li a {
+      color: var(--primary-dark);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .pe-toc ol li a:hover,
+    .pe-toc ol li a:focus {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .val-section {
+      background: var(--white);
+      border: 1px solid rgba(0, 119, 182, 0.08);
+      border-radius: var(--radius);
+      box-shadow: 0 18px 40px rgba(0, 55, 74, 0.08);
+      padding: 2rem 2.2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .val-section+.val-section {
+      margin-top: 0.5rem;
+    }
+
+    .val-section h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+
+    .page-link {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 0.4rem 0.9rem;
+      border-radius: 6px;
+      text-decoration: none;
+      margin-right: 0.5rem;
+    }
+
+    .page-link:hover {
+      background: var(--primary-dark);
+    }
+
+    .validation-img {
+      width: 100%;
+      max-width: 700px;
+      border: 2px solid #b0c8d8;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+
+
+
+    .reflection {
+      background: #fff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      box-shadow: var(--card-shadow);
+    }
+
+    .go-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--primary);
+      color: white;
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="site-brand">
+        <img src="logo.jpg" alt="AquaAction logo">
+        <div class="site-brand-text">
+          <span class="site-title">AquaAction</span>
+          <span class="site-sdg-badge">SDG 6 · Clean Water &amp; Sanitation</span>
+        </div>
+      </a>
+      <nav>
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="ais.html">Impact Simulator</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="profile.html">User Profile</a></li>
+          <li><a href="sitemap.html">Sitemap</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div id="top"></div>
+
+  <div class="val-header">
+    <h1>Validation Evidence – Student 3</h1>
+    <p>W3C HTML validation results for implemented pages</p>
+  </div>
+
+  <div class="page-wrap">
+    <aside class="pe-toc" aria-label="Validation page contents">
+      <h2>Page contents</h2>
+      <ol>
+        <li><a href="#feedback">Feedback</a></li>
+        <li><a href="#team">Team</a></li>
+        <li><a href="#content">Content</a></li>
+        <li><a href="#reflection">Reflection</a></li>
+      </ol>
+    </aside>
+
+    <div class="val-wrap">
+
+      <!-- FEEDBACK -->
+      <section class="val-section" id="feedback">
+        <h2>feedback.html</h2>
+
+        <a href="feedback.html" class="page-link" target="_blank">View Page</a>
+        <a href="pageEditor_ST3.html#feedback-desc" class="page-link">Editor Notes</a>
+
+        <p>
+          <strong>File:</strong> <code>feedback.html</code><br />
+          <strong>Validator used:</strong>
+          <a href="https://validator.w3.org/" target="_blank">W3C Markup Validation Service</a>
+        </p>
+
+        <img src="img_s3/feedback_ST3.png" alt="Validation result for feedback.html" class="validation-img">
+
+        <p>The validator confirmed that the form structure is valid. I reviewed each label and input pairing and corrected a few minor HTML issues, including missing attributes and small markup errors. This ensured the feedback form is both accessible and functionally clear.</p>
+      </section>
+
+      <!-- TEAM -->
+      <section class="val-section" id="team">
+        <h2>team.html</h2>
+
+        <a href="team.html" class="page-link" target="_blank">View Page</a>
+        <a href="pageEditor_ST3.html#team-desc" class="page-link">Editor Notes</a>
+
+        <p>
+          <strong>File:</strong> <code>team.html</code><br />
+          <strong>Validator used:</strong>
+          <a href="https://validator.w3.org/" target="_blank">W3C Markup Validation Service</a>
+        </p>
+
+        <img src="img_s3/team_ST3.png" alt="Validation result for team.html" class="validation-img">
+
+        <p>Validation confirmed that the team page markup is valid and accessible. I used semantic structure with role="listitem" and included tabindex support to improve keyboard navigation. The final page is therefore better structured for assistive technologies and screen readers.</p>
+      </section>
+
+      <!-- CONTENT -->
+      <section class="val-section" id="content">
+        <h2>content_ST3.html</h2>
+
+        <a href="content_ST3.html" class="page-link" target="_blank">View Page</a>
+        <a href="pageEditor_ST3.html#content-desc" class="page-link">Editor Notes</a>
+
+        <p>
+          <strong>File:</strong> <code>content_ST3.html</code><br />
+          <strong>Validator used:</strong>
+          <a href="https://validator.w3.org/" target="_blank">W3C Markup Validation Service</a>
+        </p>
+
+        <img src="img_s3/Content_ST3.png" alt="Validation result for content_ST3.html" class="validation-img">
+
+        <p>Validation passed after checking internal links, IDs, and structural nesting. I corrected a few small tag and nesting issues so the page layout and navigation are cleaner and more consistent. This gave greater confidence in the content page structure.</p>
+      </section>
+
+      <!-- REFLECTION -->
+      <section class="val-section" id="reflection">
+        <h2>Reflection</h2>
+
+        <div class="reflection">
+          <h3>Feedback Page</h3>
+          <p>For <strong>feedback.html</strong>, I used the W3C Markup Validation Service and found no major errors. A few minor issues were identified, including missing alt text and small HTML mistakes. I corrected these issues and confirmed that the form structure was now sound. This process reinforced the importance of clear form markup, proper field grouping, and validation checks for a reliable user experience.</p>
+          <h3>Team Page</h3>
+          <p>For <strong>team.html</strong>, validation passed successfully with no major errors. I used semantic HTML, including role="listitem", and applied tabindex and other accessibility features. The validation confirmed that the page structure was appropriate and accessible. This review taught me how important semantic tags and accessibility support are for creating pages that work well for all users.</p>
+          <h3>Content Page</h3>
+          <p>For <strong>content_ST3.html</strong>, validation also passed and the internal links, IDs, and structure were checked carefully. I fixed a few minor issues such as missing tags and nesting problems. Ensuring the page structure was clean improved navigation and helped the content remain consistent across the page. The validation step made me more attentive to code clarity and internal link reliability.</p>
+          <h3>Final Reflection</h3>
+          <p>In the final reflection, the validation process has shown that checks are essential in web development. Validation helps ensure accessibility, usability, and browser compatibility. It also improves attention to detail and reduces the chance of errors in the final site. This experience made it clear that validation is a valuable part of producing a professional web page.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>AquaAction</h3>
+        <p>University of Westminster, 2025/26</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="home.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="sitemap.html">Sitemap</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>This Page</h4>
+        <a href="pageEditor_ST3.html">Page Editor</a>
+        <a href="validation_student3.html">Validation</a>
+      </div>
+
+      <div class="footer-col">
+        <h4>Student 3</h4>
+        <p>Name: Ritika Shrestha</p>
+        <p>ID: W2124058</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>&copy; 2026 AquaAction</span>
+    </div>
+  </footer>
+
+  <a href="#top" class="go-top">↑ Top</a>
+
+</body>
+
+</html>

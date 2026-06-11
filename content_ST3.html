@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sanitation &amp; Hygiene – AquaAction | SDG 6</title>
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    .content-hero {
+      background: linear-gradient(135deg, #0077b6, #00b4d8);
+      color: #ffffff;
+      padding: 3.5rem 1.5rem 3rem;
+      text-align: center;
+    }
+    .content-hero h1 { color: #ffffff; margin-bottom: 0.5rem; }
+    .content-hero p  { color: rgba(255,255,255,0.88); max-width: 580px; margin: 0 auto; }
+
+    .content-wrap {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 2.5rem;
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem 4rem;
+      align-items: start;
+    }
+
+    .side-nav {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      padding: 1.4rem;
+      position: sticky;
+      top: 90px;
+    }
+    .side-nav h2 {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--neutral-mid);
+      margin-bottom: 0.8rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+    }
+    .side-nav ol { padding-left: 1.2rem; margin: 0; }
+    .side-nav li { margin-bottom: 0.5rem; }
+    .side-nav a  { font-size: 0.88rem; color: #00b4d8; text-decoration: none; transition: color 0.2s; }
+    .side-nav a:hover { color: #0077b6; }
+
+    .content-article section { margin-bottom: 3rem; scroll-margin-top: 90px; }
+    .content-article h2 {
+      font-size: 1.5rem;
+      color: #023e8a;
+      border-left: 4px solid #00b4d8;
+      padding-left: 0.8rem;
+      margin-bottom: 1rem;
+    }
+    .content-article h3 { font-size: 1.1rem; margin: 1.2rem 0 0.5rem; color: var(--neutral-dark); }
+    .content-article p, .content-article li { font-size: 0.95rem; color: var(--neutral-mid); line-height: 1.8; }
+
+    .content-img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      margin: 1.2rem 0;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      border: 3px solid #d8f3dc;
+    }
+
+    .highlight-box {
+      background: #e0f7fa;
+      border-left: 4px solid #0077b6;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.2rem 1.5rem;
+      margin: 1.2rem 0;
+    }
+    .highlight-box p { margin: 0; font-weight: 500; color: #1b4332; }
+
+    .go-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #00b4d8;
+      color: var(--white);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(65, 64, 145, 0.35);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .go-top:hover { background: #0077b6; color: var(--white); transform: translateY(-2px); }
+
+    @media (max-width: 768px) {
+      .content-wrap { grid-template-columns: 1fr; }
+      .side-nav { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="site-brand" aria-label="AquaAction home">
+        <img src="logo.jpg" alt="AquaAction logo – water droplet icon">
+        <div class="site-brand-text">
+          <span class="site-title">AquaAction</span>
+          <span class="site-sdg-badge">SDG 6 · Clean Water &amp; Sanitation</span>
+        </div>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="ais.html">Impact Simulator</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="profile.html">User Profile</a></li>
+          <li><a href="sitemap.html">Sitemap</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div id="top"></div>
+
+  <div class="content-hero">
+    <h1>Sanitation &amp; Hygiene</h1>
+    <p>Why access to safe toilets and clean hands saves millions of lives every year.</p>
+  </div>
+
+  <div class="content-wrap">
+
+    <aside class="side-nav" aria-label="Page sections">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#scale">The Scale of the Problem</a></li>
+        <li><a href="#schools">Sanitation in Schools</a></li>
+        <li><a href="#hygiene">The Power of Handwashing</a></li>
+        <li><a href="#action">Taking Action</a></li>
+      </ol>
+    </aside>
+
+    <article class="content-article">
+      <h2>Sanitation and Hygiene</h2>
+      <section id="overview">
+        <h2>1. Overview</h2>
+        <p>
+          Sanitation refers to the provision of facilities and services for the safe
+          disposal of human waste. Alongside access to clean water, sanitation is
+          one of the most powerful tools for protecting human health and dignity.
+          Yet today, billions of people still lack access to even basic sanitation services.
+        </p>
+        <img class="content-img" src="images/content3_1.jpg" alt="A clean public toilet facility in a developing community, representing improved sanitation access">
+        <p>
+          SDG 6 specifically targets ending open defecation and achieving access to
+          adequate and equitable sanitation and hygiene for all by 2030. Progress is
+          being made, but it is not happening fast enough — particularly in rural areas
+          and informal urban settlements.
+        </p>
+        <div class="highlight-box">
+          <p>3.6 billion people — nearly half the world's population — lack access to safely managed sanitation.</p>
+        </div>
+      </section>
+
+      <section id="scale">
+        <h2>2. The Scale of the Problem</h2>
+        <img class="content-img" src="images/content3_2.jpg" alt="An open field used for open defecation in a rural area, highlighting the sanitation crisis">
+        <p>
+          Around 419 million people still practise open defecation — relieving
+          themselves outdoors with no toilet at all. This practice spreads disease,
+          contaminates water sources, and poses particular risks to women and girls,
+          who face safety concerns when going outside at night.
+        </p>
+        <ul>
+          <li>2.3 billion people use basic sanitation services but lack safely managed facilities.</li>
+          <li>673 million people still defecate in the open as of 2020.</li>
+          <li>Poor sanitation costs countries up to 5% of GDP through healthcare costs and lost productivity.</li>
+          <li>Diarrhoeal diseases linked to poor sanitation kill around 432,000 people annually.</li>
+        </ul>
+      </section>
+
+      <section id="schools">
+        <h2>3. Sanitation in Schools</h2>
+        <img class="content-img" src="images/content3_3.jpg" alt="School children washing their hands at an outdoor handwashing station">
+        <p>
+          Access to sanitation in schools is essential for keeping children — especially
+          girls — in education. When schools lack adequate toilet facilities, girls who
+          have reached puberty often drop out rather than deal with menstruation without
+          private, clean facilities.
+        </p>
+        <h3>Key Facts</h3>
+        <ul>
+          <li>1 in 3 schools worldwide lacks basic sanitation facilities.</li>
+          <li>Over 600 million school-age children attend schools without adequate toilets.</li>
+          <li>Girls are disproportionately affected — lack of private facilities is a major driver of school dropout.</li>
+        </ul>
+        <p>
+          Improving school sanitation has a multiplier effect: children who stay in school
+          are more likely to adopt hygiene habits that they carry into adulthood,
+          benefiting their future families and communities.
+        </p>
+      </section>
+
+      <section id="hygiene">
+        <h2>4. The Power of Handwashing</h2>
+        <img class="content-img" src="images/content3_4.jpg" alt="Hands being washed under clean running water with soap">
+        <p>
+          Handwashing with soap is one of the most cost-effective public health
+          interventions in the world. It can reduce diarrhoeal diseases by up to 40%
+          and respiratory infections by up to 23%.
+        </p>
+        <p>
+          Yet globally, 3 billion people lack basic handwashing facilities with soap
+          and water at home. The COVID-19 pandemic highlighted how critical hand
+          hygiene is — but also how many people lack the facilities to practice it.
+        </p>
+        <div class="highlight-box">
+          <p>For every £1 invested in sanitation and hygiene, the return in healthcare savings and productivity gains is estimated at £5.</p>
+        </div>
+      </section>
+
+      <section id="action">
+        <h2>5. Taking Action</h2>
+        <p>Students and young people have a vital role in improving sanitation and hygiene — both locally and globally.</p>
+        <ul>
+          <li>Fundraise for organisations building toilets and handwashing stations in schools (e.g. WaterAid, UNICEF).</li>
+          <li>Advocate for better sanitation facilities on your own campus or in your local community.</li>
+          <li>Share factual information about sanitation to reduce stigma and raise awareness.</li>
+          <li>Support menstrual hygiene initiatives that keep girls in school.</li>
+          <li>Volunteer with local charities focused on hygiene education.</li>
+        </ul>
+        <div class="highlight-box">
+          <p>Use our <a href="ais.html">Impact Simulator</a> to explore the actions you can take and their impact on SDG 6.</p>
+        </div>
+      </section>
+
+    </article>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>AquaAction</h3>
+        <p>University of Westminster, 2025/26</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="home.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="ais.html">Impact Simulator</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="team.html">Team</a>
+        <a href="profile.html">User Profile</a>
+        <a href="sitemap.html">Sitemap</a>
+      </div>
+      <div class="footer-col">
+        <h4>This Page</h4>
+        <a href="pageEditor_ST3.html">Page Editor</a>
+        <a href="validation_ST3.html">Validation</a>
+      </div>
+      <div class="footer-col">
+        <h4>Student 3 Details</h4>
+        <p>Name: Ritika Shrestha</p>
+        <p>Student ID: w2124058</p>
+        <p>Role: Feedback &amp; Team Page</p>
+        <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" rel="noopener">Accessibility (WCAG 2.1)</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 AquaAction – University of Westminster</span>
+    </div>
+  </footer>
+
+  <a href="#top" class="go-top" aria-label="Go to top of page">↑ Top</a>
+
+</body>
+</html>

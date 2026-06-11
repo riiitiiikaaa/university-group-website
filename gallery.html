@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery – AquaAction | SDG 6: Clean Water &amp; Sanitation</title>
+  <!-- Global CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- ============================================================
+       PAGE-SPECIFIC EMBEDDED CSS – Gallery Page only
+       Author: Student 1
+       These styles are specific to gallery.html and do NOT
+       override any global CSS rules.
+  ============================================================ -->
+  <style>
+
+    /* 1. Gallery page intro banner */
+    .gallery-banner {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: var(--white);
+      padding: 3.5rem 1.5rem 3rem;
+      text-align: center;
+    }
+
+    .gallery-banner h1 { color: var(--white); margin-bottom: 0.75rem; }
+    .gallery-banner p  { color: rgba(255,255,255,0.88); max-width: 560px; margin: 0 auto; }
+
+    /* 2. Thumbnail grid layout */
+    .thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    /* 3. Individual thumbnail item */
+    .thumb-item {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--card-shadow);
+      cursor: pointer;
+      position: relative;
+      background: var(--neutral-dark);
+    }
+
+    .thumb-item img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 0;
+      display: block;
+      transition: transform 0.35s ease, opacity 0.35s ease;
+    }
+
+    /* Hover feedback – visual handled by CSS,
+       but the class 'thumb-hover' is toggled via JS */
+    .thumb-item.thumb-hover img {
+      transform: scale(1.06);
+      opacity: 0.85;
+    }
+
+    .thumb-item.thumb-hover .thumb-label {
+      background: var(--primary);
+      color: var(--white);
+    }
+
+    /* Thumbnail label */
+    .thumb-label {
+      padding: 0.7rem 1rem;
+      background: var(--white);
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--neutral-dark);
+      transition: background 0.3s ease, color 0.3s ease;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    /* 4. Modal / extended view overlay */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 30, 50, 0.78);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-overlay.modal-open {
+      display: flex;
+    }
+
+    .modal-box {
+      background: var(--white);
+      border-radius: var(--radius);
+      max-width: 700px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+      animation: modalIn 0.3s ease;
+    }
+
+    @keyframes modalIn {
+      from { transform: translateY(30px); opacity: 0; }
+      to   { transform: translateY(0);    opacity: 1; }
+    }
+
+    .modal-img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+      border-radius: var(--radius) var(--radius) 0 0;
+      display: block;
+    }
+
+    .modal-content {
+      padding: 1.8rem;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 0.5rem;
+      font-size: 1.4rem;
+    }
+
+    .modal-content p {
+      font-size: 0.95rem;
+      line-height: 1.75;
+    }
+
+    /* Close button */
+    .modal-close {
+      display: block;
+      margin: 1.5rem auto 0;
+      padding: 0.55rem 1.6rem;
+      background: var(--primary);
+      color: var(--white);
+      border: none;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    .modal-close:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* 5. User customisation controls (inside extended view) */
+    .modal-controls {
+      background: var(--neutral-light);
+      border-radius: 8px;
+      padding: 1rem 1.4rem;
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .modal-controls label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--neutral-mid);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .modal-controls select {
+      padding: 0.35rem 0.7rem;
+      border-radius: 6px;
+      border: 1px solid #cdd8e0;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      background: var(--white);
+      color: var(--neutral-dark);
+    }
+
+    /* 6. Gallery section heading spacing */
+    .gallery-section-top {
+      padding-top: 2.5rem;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- ═══ HEADER & NAV ═══ -->
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="site-brand" aria-label="AquaAction home">
+        <img src="images/logo.jpg" alt="AquaAction logo – water droplet icon">
+        <div class="site-brand-text">
+          <span class="site-title">AquaAction</span>
+          <span class="site-sdg-badge">SDG 6 · Clean Water &amp; Sanitation</span>
+        </div>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="gallery.html" class="active">Gallery</a></li>
+          <li><a href="ais.html">Impact Simulator</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="profile.html">User Profile</a></li>
+          <li><a href="sitemap.html">Sitemap</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!-- ═══ END HEADER ═══ -->
+
+
+  <!-- ═══ MAIN ═══ -->
+  <main>
+
+    <!-- Gallery Banner -->
+    <section class="gallery-banner" aria-labelledby="gallery-heading">
+      <h1 id="gallery-heading">Photo Gallery</h1>
+      <p>
+        Explore images that tell the story of SDG 6 — from water scarcity
+        and pollution to conservation efforts and community solutions.
+        Click any image to learn more.
+      </p>
+    </section>
+
+
+    <!-- Thumbnail Grid -->
+    <div class="container gallery-section-top">
+      <div class="section-title">
+        <h2>Water Stories Around the World</h2>
+        <div class="divider" aria-hidden="true"></div>
+        <p>Click a topic to explore more</p>
+      </div>
+
+      <div class="thumb-grid" role="list" aria-label="Gallery of water-related images">
+
+        <!-- Thumbnail 1 -->
+        <div
+          class="thumb-item"
+          role="listitem"
+          tabindex="0"
+          data-id="0"
+          aria-label="Open image: Water Scarcity in East Africa"
+        >
+          <img src="images/gallery1.jpg" alt="A dry river bed in East Africa during a drought">
+          <div class="thumb-label">Water Scarcity</div>
+        </div>
+
+        <!-- Thumbnail 2 -->
+        <div
+          class="thumb-item"
+          role="listitem"
+          tabindex="0"
+          data-id="1"
+          aria-label="Open image: River Pollution in Urban Areas"
+        >
+          <img src="images/gallery2.jpg" alt="Polluted urban river with industrial waste floating on surface">
+          <div class="thumb-label">River Pollution</div>
+        </div>
+
+        <!-- Thumbnail 3 -->
+        <div
+          class="thumb-item"
+          role="listitem"
+          tabindex="0"
+          data-id="2"
+          aria-label="Open image: Community Water Pump Installation"
+        >
+          <img src="images/gallery3.jpg" alt="Community members gathered around a newly installed water pump in a village">
+          <div class="thumb-label">Community Solutions</div>
+        </div>
+
+        <!-- Thumbnail 4 -->
+        <div
+          class="thumb-item"
+          role="listitem"
+          tabindex="0"
+          data-id="3"
+          aria-label="Open image: Ocean Plastic Cleanup"
+        >
+          <img src="images/gallery4.jpg" alt="Volunteers collecting plastic waste from a beach to protect ocean water quality">
+          <div class="thumb-label">Ocean Cleanup</div>
+        </div>
+
+        <!-- Thumbnail 5 -->
+        <div
+          class="thumb-item"
+          role="listitem"
+          tabindex="0"
+          data-id="4"
+          aria-label="Open image: Clean Tap Water Access"
+        >
+          <img src="images/gallery5.jpg" alt="Clean water flowing from a modern tap in a family home">
+          <div class="thumb-label">Clean Water Access</div>
+        </div>
+
+        <!-- Thumbnail 6 -->
+        <div
+          class="thumb-item"
+          role="listitem"
+          tabindex="0"
+          data-id="5"
+          aria-label="Open image: Rainwater Harvesting"
+        >
+          <img src="images/gallery6.jpg" alt="A rainwater harvesting system collecting water from a rooftop in a rural community">
+          <div class="thumb-label">Rainwater Harvesting</div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+  <!-- ═══ END MAIN ═══ -->
+
+
+  <!-- ═══ MODAL – Extended View (populated by JS) ═══ -->
+  <div
+    class="modal-overlay"
+    id="galleryModal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modalTitle"
+  >
+    <div class="modal-box">
+      <img class="modal-img" id="modalImg" src="images/gallery1.jpg" alt="Selected gallery image">
+      <div class="modal-content" id="modalContent">
+        <h2 id="modalTitle">Image Title</h2>
+        <p id="modalDesc">Image description will appear here.</p>
+
+        <!-- User Customisation Controls (JS-powered) -->
+        <div class="modal-controls" role="region" aria-label="Extended view customisation options">
+
+          <label for="colourScheme">Colour scheme:</label>
+          <select id="colourScheme" aria-label="Choose a colour scheme for the extended view">
+            <option value="default">Default</option>
+            <option value="ocean">Ocean Blue</option>
+            <option value="forest">Forest Green</option>
+            <option value="sand">Sandy Warm</option>
+          </select>
+
+          <label for="fontStyle">Font style:</label>
+          <select id="fontStyle" aria-label="Choose a font style for the extended view">
+            <option value="default">Default</option>
+            <option value="serif">Serif (Playfair)</option>
+            <option value="mono">Monospace</option>
+            <option value="rounded">Rounded</option>
+          </select>
+
+        </div>
+
+        <button class="modal-close" id="modalCloseBtn" aria-label="Close extended view">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- ═══ END MODAL ═══ -->
+
+
+  <!-- ═══ FOOTER ═══ -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h3>AquaAction</h3>
+        <p>A student project for SDG 6: Clean Water &amp; Sanitation.</p>
+        <p>University of Westminster, 2025/26</p>
+      </div>
+      <div class="footer-col">
+        <h3>Quick Links</h3>
+        <a href="home.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="ais.html">Impact Simulator</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="team.html">Team</a>
+        <a href="profile.html">User Profile</a>
+        <a href="sitemap.html">Sitemap</a>
+      </div>
+      <div class="footer-col">
+        <h3>This Page</h3>
+        <a href="pageEditor_ST1.html">Page Editor</a>
+        <a href="validation_ST1.html">Validation</a>
+      </div>
+      <div class="footer-col">
+        <h3>Student 1 Details</h3>
+        <p>Name: Erika Shrestha</p>
+        <p>Student ID: W2121989</p>
+        <p>Role: Home Page &amp; Gallery</p>
+        <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" rel="noopener">
+          Accessibility (WCAG 2.1)
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 AquaAction – University of Westminster</span>
+      <span>SDG 6: Clean Water &amp; Sanitation</span>
+    </div>
+  </footer>
+  <!-- ═══ END FOOTER ═══ -->
+
+  <script src="gallery.js"></script>
+</body>
+</html>

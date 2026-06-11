@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Water Technology &amp; Innovation – AquaAction | SDG 6</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .content-hero {
+      background: linear-gradient(135deg, #212529, #495057);
+      color: var(--white);
+      padding: 3.5rem 1.5rem 3rem;
+      text-align: center;
+    }
+    .content-hero h1 { color: var(--white); margin-bottom: 0.5rem; }
+    .content-hero p  { color: rgba(255,255,255,0.88); max-width: 580px; margin: 0 auto; }
+
+    .content-wrap {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      gap: 2.5rem;
+      max-width: 1100px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem 4rem;
+      align-items: start;
+    }
+
+    .side-nav {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--card-shadow);
+      padding: 1.4rem;
+      position: sticky;
+      top: 90px;
+    }
+    .side-nav h2 {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--neutral-mid);
+      margin-bottom: 0.8rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+    }
+    .side-nav ol { padding-left: 1.2rem; margin: 0; }
+    .side-nav li { margin-bottom: 0.5rem; }
+    .side-nav a  { font-size: 0.88rem; color: #495057; text-decoration: none; transition: color 0.2s; }
+    .side-nav a:hover { color: #212529; }
+
+    .content-article section { margin-bottom: 3rem; scroll-margin-top: 90px; }
+    .content-article h2 {
+      font-size: 1.5rem;
+      color: #212529;
+      border-left: 4px solid var(--secondary);
+      padding-left: 0.8rem;
+      margin-bottom: 1rem;
+    }
+    .content-article h3 { font-size: 1.1rem; margin: 1.2rem 0 0.5rem; color: var(--neutral-dark); }
+    .content-article p, .content-article li { font-size: 0.95rem; color: var(--neutral-mid); line-height: 1.8; }
+
+    .content-img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+      border-radius: var(--radius);
+      margin: 1.2rem 0;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      border: 3px solid var(--neutral-light);
+    }
+
+    .highlight-box {
+      background: var(--neutral-light);
+      border-left: 4px solid #212529;
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.2rem 1.5rem;
+      margin: 1.2rem 0;
+    }
+    .highlight-box p { margin: 0; font-weight: 500; color: #212529; }
+
+    .go-top {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #495057;
+      color: var(--white);
+      padding: 0.6rem 1rem;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(73,80,87,0.35);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .go-top:hover { background: #212529; color: var(--white); transform: translateY(-2px); }
+
+    @media (max-width: 768px) {
+      .content-wrap { grid-template-columns: 1fr; }
+      .side-nav { position: static; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <a href="home.html" class="site-brand" aria-label="AquaAction home">
+        <img src="images/logo.jpg" alt="AquaAction logo – water droplet icon" />
+        <div class="site-brand-text">
+          <span class="site-title">AquaAction</span>
+          <span class="site-sdg-badge">SDG 6 · Clean Water &amp; Sanitation</span>
+        </div>
+      </a>
+      <nav aria-label="Main navigation">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="gallery.html">Gallery</a></li>
+          <li><a href="ais.html">Impact Simulator</a></li>
+          <li><a href="feedback.html">Feedback</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="profile.html">User Profile</a></li>
+          <li><a href="sitemap.html">Sitemap</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div id="top"></div>
+
+  <div class="content-hero">
+    <h1>Water Technology &amp; Innovation</h1>
+    <p>How science and engineering are creating new solutions to the global water crisis.</p>
+  </div>
+
+  <div class="content-wrap">
+
+    <aside class="side-nav" aria-label="Page sections">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#purification">Purification Tech</a></li>
+        <li><a href="#solar">Solar &amp; Renewable</a></li>
+        <li><a href="#smart">Smart Water Systems</a></li>
+        <li><a href="#future">The Future</a></li>
+      </ol>
+    </aside>
+
+    <article class="content-article">
+
+      <section id="overview">
+        <h2>1. Overview</h2>
+        <p>
+          Technology and innovation are playing an increasingly vital role in
+          addressing the global water crisis. From low-cost filtration systems
+          that can be built in rural villages to satellite-based water monitoring,
+          engineers and scientists are developing creative solutions to deliver
+          clean water to those who need it most.
+        </p>
+        <img class="content-img" src="images\content4_1.jpg" alt="A modern water treatment plant with large filtration tanks" />
+        <p>
+          Innovation in the water sector spans a wide spectrum — from simple,
+          low-tech solutions that can be deployed cheaply in low-income settings,
+          to sophisticated digital infrastructure that optimises water distribution
+          in major cities. Both ends of the spectrum are essential to achieving SDG 6.
+        </p>
+        <div class="highlight-box">
+          <p>The global water technology market is projected to exceed $1 trillion by 2030 as demand for clean water solutions grows.</p>
+        </div>
+      </section>
+
+      <section id="purification">
+        <h2>2. Water Purification Technology</h2>
+        <img class="content-img" src="images\content4_2.jpg" alt="A portable water filtration device being used in a field setting" />
+        <h3>Ceramic Filtration</h3>
+        <p>Simple ceramic pot filters can remove up to 99.9% of bacteria and protozoa from water. They are inexpensive, can be made locally, and require no electricity — making them ideal for rural communities in developing countries.</p>
+        <h3>Reverse Osmosis</h3>
+        <p>Reverse osmosis (RO) systems force water through semi-permeable membranes to remove contaminants including heavy metals, bacteria, and dissolved solids. Costs have dropped significantly, making RO viable for household use in many regions.</p>
+        <h3>UV Disinfection</h3>
+        <p>Ultraviolet light kills bacteria, viruses, and protozoa in water without the use of chemicals. Solar-powered UV systems can treat water in off-grid communities using only sunlight.</p>
+        <h3>Biosand Filters</h3>
+        <p>Biosand filters use layers of sand and gravel, plus a biological layer of microorganisms, to remove pathogens from water. They are durable, low-cost, and can be made from locally available materials.</p>
+      </section>
+
+      <section id="solar">
+        <h2>3. Solar &amp; Renewable Energy Solutions</h2>
+        <img class="content-img" src="images\content4_3.jpg" alt="Solar panels powering a water pumping station in a rural African village" />
+        <p>
+          One of the biggest barriers to clean water access in off-grid communities
+          is energy. Traditional pumps and treatment systems require electricity that
+          is unavailable or unaffordable. Solar-powered solutions are changing this.
+        </p>
+        <ul>
+          <li><strong>Solar water pumps</strong> can lift water from boreholes without electricity or diesel, cutting costs and carbon emissions.</li>
+          <li><strong>Solar stills</strong> use sunlight to evaporate and condense water, removing salt and contaminants — a form of solar desalination.</li>
+          <li><strong>Atmospheric water generators</strong> extract moisture directly from the air using solar power, creating water from humidity in arid regions.</li>
+        </ul>
+      </section>
+
+      <section id="smart">
+        <h2>4. Smart Water Systems</h2>
+        <img class="content-img" src="images\content4_4.jpg" alt="A digital dashboard showing real-time water quality monitoring data" />
+        <p>
+          In cities around the world, digital technology is being used to make
+          water distribution smarter, more efficient, and more resilient.
+        </p>
+        <h3>IoT Sensors</h3>
+        <p>Internet of Things (IoT) sensors embedded in pipes and reservoirs can detect leaks, monitor water quality in real time, and alert engineers to problems before they become crises — reducing water loss significantly.</p>
+        <h3>AI-Powered Forecasting</h3>
+        <p>Artificial intelligence is being used to predict water demand, optimise irrigation in agriculture, and forecast drought and flood events — helping governments and utilities plan ahead.</p>
+        <h3>Blockchain for Water Rights</h3>
+        <p>In some regions, blockchain technology is being explored to create transparent, tamper-proof records of water rights and usage, reducing disputes and corruption in water allocation.</p>
+      </section>
+
+      <section id="future">
+        <h2>5. The Future of Water Technology</h2>
+        <p>
+          The next decade will see transformative advances in water technology.
+          Key areas to watch include:
+        </p>
+        <ul>
+          <li><strong>Desalination:</strong> New membrane technologies and energy recovery systems are making seawater desalination increasingly affordable and less energy-intensive.</li>
+          <li><strong>Nanotechnology:</strong> Nanomaterials can filter out contaminants at the molecular level, offering new possibilities for water purification.</li>
+          <li><strong>Wastewater recycling:</strong> Advanced treatment now makes it possible to purify wastewater to drinking water standards — a circular approach already used in Singapore and parts of the USA.</li>
+          <li><strong>Drone monitoring:</strong> Drones equipped with sensors can survey river basins, detect pollution sources, and monitor water levels across vast areas.</li>
+        </ul>
+        <div class="highlight-box">
+          <p>Technology alone won't solve the water crisis — but combined with political will and community action, it offers powerful tools to achieve SDG 6. Visit our <a href="ais.html">Impact Simulator</a> to see how your actions contribute.</p>
+        </div>
+      </section>
+
+    </article>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>AquaAction</h4>
+        <p>University of Westminster, 2025/26</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <a href="home.html">Home</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="ais.html">Impact Simulator</a>
+        <a href="feedback.html">Feedback</a>
+        <a href="team.html">Team</a>
+        <a href="profile.html">User Profile</a>
+        <a href="sitemap.html">Sitemap</a>
+      </div>
+      <div class="footer-col">
+        <h4>This Page</h4>
+        <a href="pageEditor_ST4.html">Page Editor</a>
+        <a href="validation_ST4.html">Validation</a>
+      </div>
+      <div class="footer-col">
+        <h4>Student 4 Details</h4>
+        <p>Name: Sampanna Kunwar</p>
+        <p>Student ID: w2124050</p>
+        <p>Role: User Profile &amp; Sitemap</p>
+        <a href="https://www.w3.org/WAI/WCAG21/quickref/" target="_blank" rel="noopener">Accessibility (WCAG 2.1)</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 AquaAction – University of Westminster</span>
+    </div>
+  </footer>
+
+  <a href="#top" class="go-top" aria-label="Go to top of page">↑ Top</a>
+
+</body>
+</html>
